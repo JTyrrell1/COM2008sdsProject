@@ -6,7 +6,7 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                final GUI window = new GUI(text);
+                final testing window = new testing();
                 window.setVisible(true);
             }
         });
