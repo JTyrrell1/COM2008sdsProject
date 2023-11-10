@@ -9,7 +9,8 @@ public class GUI extends JFrame{
     public GUI(String text) {
         super(text);
 
-        JPanel panel = new JPanel();
+
+
 
     }
 }
