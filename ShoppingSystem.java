@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class ShoppingSystem {
     
@@ -15,8 +16,10 @@ public class ShoppingSystem {
                 //need to get User[] users, Product[] products and Order[] orders from database
                 //ShoppingSystem shoppingSystem = new ShoppingSystem(users, products, orders);
                 
-                final testing window = new testing();
-                window.setVisible(true);
+                final GUI window = new GUI();
+                GUI.main();
+
+
             }
         });
     }
