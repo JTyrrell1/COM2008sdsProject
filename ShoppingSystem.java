@@ -17,7 +17,7 @@ public class ShoppingSystem {
                 //ShoppingSystem shoppingSystem = new ShoppingSystem(users, products, orders);
                 
                 final GUI window = new GUI();
-                GUI.main();
+                window.main();
 
 
             }
