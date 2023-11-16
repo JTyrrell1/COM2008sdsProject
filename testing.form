@@ -131,7 +131,7 @@
     </children>
   </grid>
   <buttonGroups>
-    <group name="Selector1">
+    <group name="Selector1" bound="true">
       <member id="93503"/>
       <member id="4f1da"/>
     </group>
