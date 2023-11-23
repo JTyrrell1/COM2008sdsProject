@@ -23,19 +23,19 @@ public class testing extends JDialog {
     public testing() {
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        //getRootPane().setDefaultButton(buttonOK);
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        //buttonOK.addActionListener(new ActionListener() {
+        //    public void actionPerformed(ActionEvent e) {
+        //        onOK();
+        //    }
+        //});
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        //buttonCancel.addActionListener(new ActionListener() {
+        //    public void actionPerformed(ActionEvent e) {
+        //        onCancel();
+        //    }
+        //});
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -55,6 +55,7 @@ public class testing extends JDialog {
 
     private void onOK() {
         // add your code here
+        System.out.println("oogabooga");
         dispose();
     }
 
@@ -139,4 +140,5 @@ public class testing extends JDialog {
     public JComponent $$$getRootComponent$$$() {
         return contentPane;
     }
+
 }

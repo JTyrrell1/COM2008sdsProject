@@ -15,19 +15,18 @@ public class GUI extends JDialog {
 
         setContentPane(contentPane);
         getRootPane().setDefaultButton(buttonOK);
-        this.setVisible(true);
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        //buttonOK.addActionListener(new ActionListener() {
+        //    public void actionPerformed(ActionEvent e) {
+        //        onOK();
+        //    }
+        //});
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        //buttonCancel.addActionListener(new ActionListener() {
+        //    public void actionPerformed(ActionEvent e) {
+        //        onCancel();
+        //    }
+        //});
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -56,7 +55,7 @@ public class GUI extends JDialog {
     }
 
     public static void main() {
-        testing window = new testing();
+        GUI window = new GUI();
         window.pack();
         window.setVisible(true);
         System.exit(0);
