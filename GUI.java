@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Stack;
+import java.sql.*;
+
 
 public class GUI extends JDialog {
 
@@ -10,6 +12,8 @@ public class GUI extends JDialog {
     private JButton buttonCancel;
     private JTextField textField1;
     private JPasswordField passwordField1;
+
+    private JFrame frame;
 
     public GUI() {
 
@@ -45,9 +49,9 @@ public class GUI extends JDialog {
     }
 
     private void onOK() {
-        final testing shopGui = new testing();
-        shopGui.main();
-        System.exit(0);
+        String email = textField1.getText();
+        char[] password = passwordField1.getPassword();
+        authenticateUser(email, new String(password));
         dispose();
     }
 
@@ -61,6 +65,41 @@ public class GUI extends JDialog {
         dialog.pack();
         dialog.setVisible(true);
     }
+
+    private void authenticateUser(String email, String password) {
+        Connection connection = null;
+        try {
+            connection = DatabaseConnectionHandler.getConnection();
+            //String queery = "USE team071";
+            PreparedStatement setupStatement = connection.prepareStatement(queery);
+            setupStatement.executeQuery();
+
+            String query = "SELECT * FROM user WHERE email = ? AND password = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                JOptionPane.showMessageDialog(frame, "Login successful!");
+            } else {
+                JOptionPane.showMessageDialog(frame, "Invalid email or password.");
+            }
+
+        } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());
+        } finally {
+            try {
+                if (connection != null && !connection.isClosed()) {
+                    connection.close();
+                }
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
+    }
+
 
 
     {
