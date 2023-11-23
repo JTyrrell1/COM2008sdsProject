@@ -1,0 +1,20 @@
+import java.util.Date;
+
+public class BankAccount {
+    
+    private String cardName;
+    private int cardNumber;
+    private Date expiryDate;
+    private int securityCode;
+    private String cardHolderName;
+    
+    public BankAccount(String cardName, int cardNumber, Date expiryDate, int securityCode, String cardHolderName) {
+        super();
+        this.cardName = cardName;
+        this.cardNumber = cardNumber;
+        this.expiryDate = expiryDate;
+        this.securityCode = securityCode;
+        this.cardHolderName = cardHolderName;
+    }
+
+}
