@@ -68,7 +68,6 @@ public class testing extends JDialog {
         testing dialog = new testing();
         dialog.pack();
         dialog.setVisible(true);
-        System.exit(0);
     }
 
     {
