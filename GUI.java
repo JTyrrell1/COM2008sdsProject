@@ -45,7 +45,9 @@ public class GUI extends JDialog {
     }
 
     private void onOK() {
-        // add your code here
+        final testing shopGui = new testing();
+        shopGui.main();
+        System.exit(0);
         dispose();
     }
 

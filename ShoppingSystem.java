@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class ShoppingSystem {
     
@@ -15,7 +18,8 @@ public class ShoppingSystem {
                 
                 //need to get User[] users, Product[] products and Order[] orders from database
                 //ShoppingSystem shoppingSystem = new ShoppingSystem(users, products, orders);
-                
+                final DatabaseConnectionHandler NeoSpace = new DatabaseConnectionHandler();
+                NeoSpace.getConnection();
                 final GUI window = new GUI();
                 window.main();
 

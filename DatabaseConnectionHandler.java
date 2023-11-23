@@ -1,14 +1,15 @@
 
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnectionHandler {
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-    static final String DB_URL = "stusql.dcs.shef.ac.uk:3306";
+    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    static final String DB_URL = "jdbc:mysql://stusql.dcs.shef.ac.uk:3306";
 
-    static final String USER = "YOUR_USERNAME";
-    static final String PASS = "YOUR_PASSWORD";
+    static final String USER = "team071";
+    static final String PASS = "Oohiy7ahK";
     
     public static Connection getConnection() {
         Connection conn = null;
