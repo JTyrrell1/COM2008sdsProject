@@ -74,7 +74,7 @@ public class GUI extends JDialog {
             //PreparedStatement setupStatement = connection.prepareStatement(queery);
             //setupStatement.executeQuery();
 
-            String query = "SELECT * FROM user WHERE email = ? AND password = ?";
+            String query = "SELECT * FROM Users WHERE email = ? AND password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
