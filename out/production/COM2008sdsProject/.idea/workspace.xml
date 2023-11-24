@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="791b511d-4af5-41b4-a3f1-8d46a7fe4240" name="Changes" comment="linked gui pages" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2XqME4fDHuJHToQhQHgSwhU6y84" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.STATE&quot;: &quot;right&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.STATE&quot;: &quot;left&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/JTyrr/sqlconnector/mysql-connector.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\JTyrr\IdeaProjects\COM2008sdsProject" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="791b511d-4af5-41b4-a3f1-8d46a7fe4240" name="Changes" comment="" />
+      <created>1699352042584</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1699352042584</updated>
+      <workItem from="1699352043636" duration="244000" />
+      <workItem from="1699352376979" duration="4545000" />
+      <workItem from="1699449693926" duration="5299000" />
+      <workItem from="1699976386697" duration="5153000" />
+      <workItem from="1700061244986" duration="2829000" />
+      <workItem from="1700137076021" duration="1326000" />
+      <workItem from="1700144007903" duration="4467000" />
+      <workItem from="1700734845387" duration="8399000" />
+      <workItem from="1700753856023" duration="1749000" />
+    </task>
+    <task id="LOCAL-00001" summary="started work on gui">
+      <option name="closed" value="true" />
+      <created>1699363039420</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1699363039420</updated>
+    </task>
+    <task id="LOCAL-00002" summary="worked on gui">
+      <option name="closed" value="true" />
+      <created>1699460717126</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1699460717126</updated>
+    </task>
+    <task id="LOCAL-00003" summary="got login GUI working">
+      <option name="closed" value="true" />
+      <created>1699982560927</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1699982560927</updated>
+    </task>
+    <task id="LOCAL-00004" summary="worked on main menu">
+      <option name="closed" value="true" />
+      <created>1700138735248</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1700138735248</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added connection handler and fixed gui code">
+      <option name="closed" value="true" />
+      <created>1700735107166</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1700735107166</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fixed more gui">
+      <option name="closed" value="true" />
+      <created>1700736398665</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1700736398665</updated>
+    </task>
+    <task id="LOCAL-00007" summary="connected and setup database">
+      <option name="closed" value="true" />
+      <created>1700741298263</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1700741298263</updated>
+    </task>
+    <task id="LOCAL-00008" summary="linked login to database">
+      <option name="closed" value="true" />
+      <created>1700742577618</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1700742577618</updated>
+    </task>
+    <task id="LOCAL-00009" summary="linked gui pages">
+      <option name="closed" value="true" />
+      <created>1700754206255</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1700754206255</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="started work on gui" />
+    <MESSAGE value="worked on gui" />
+    <MESSAGE value="got login GUI working" />
+    <MESSAGE value="worked on main menu" />
+    <MESSAGE value="added connection handler and fixed gui code" />
+    <MESSAGE value="fixed more gui" />
+    <MESSAGE value="connected and setup database" />
+    <MESSAGE value="linked login to database" />
+    <MESSAGE value="linked gui pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="linked gui pages" />
+  </component>
+</project>

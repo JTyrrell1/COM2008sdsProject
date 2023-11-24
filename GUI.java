@@ -60,7 +60,9 @@ public class GUI extends JDialog {
     }
 
     private void onCancel() {
-        // add your code here if necessary
+        String email = textField1.getText();
+        char[] password = passwordField1.getPassword();
+        UserSignUp(email, new String(password));
         dispose();
     }
 
@@ -78,7 +80,7 @@ public class GUI extends JDialog {
             //PreparedStatement setupStatement = connection.prepareStatement(queery);
             //setupStatement.executeQuery();
 
-            String query = "SELECT * FROM user WHERE email = ? AND password = ?";
+            String query = "SELECT * FROM Users WHERE email = ? AND password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
@@ -87,10 +89,47 @@ public class GUI extends JDialog {
 
             if (resultSet.next()) {
                 JOptionPane.showMessageDialog(frame, "Login successful!");
+                testing maingui = new testing();
+                maingui.main();
             } else {
                 JOptionPane.showMessageDialog(frame, "Invalid email or password.");
             }
 
+        } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());
+        } finally {
+            try {
+                if (connection != null && !connection.isClosed()) {
+                    connection.close();
+                }
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
+    }
+
+    private void UserSignUp(String email, String password){
+        Connection connection = null;
+        try {
+            connection = DatabaseConnectionHandler.getConnection();
+
+            String query = "SELECT * FROM Users WHERE email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                JOptionPane.showMessageDialog(frame, "Account already exists");
+            } else {
+                // insert account creation code here
+                String query2 = "INSERT INTO Users (email, password) VALUES(?, ?)";
+                PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
+                preparedStatement2.setString(1, email);
+                preparedStatement2.setString(2, password);
+                preparedStatement2.executeQuery();
+                JOptionPane.showMessageDialog(frame, "Account created");
+            }
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());
         } finally {
