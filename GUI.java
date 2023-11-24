@@ -60,7 +60,9 @@ public class GUI extends JDialog {
     }
 
     private void onCancel() {
-        // add your code here if necessary
+        String email = textField1.getText();
+        char[] password = passwordField1.getPassword();
+        UserSignUp(email, new String(password));
         dispose();
     }
 
@@ -121,6 +123,11 @@ public class GUI extends JDialog {
                 JOptionPane.showMessageDialog(frame, "Account already exists");
             } else {
                 // insert account creation code here
+                String query2 = "INSERT INTO Users (email, password) VALUES(?, ?)";
+                PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
+                preparedStatement2.setString(1, email);
+                preparedStatement2.setString(2, password);
+                preparedStatement2.executeQuery();
                 JOptionPane.showMessageDialog(frame, "Account created");
             }
         } catch (SQLException sqle) {
