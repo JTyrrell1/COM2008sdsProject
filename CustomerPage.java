@@ -3,6 +3,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
@@ -28,7 +29,9 @@ public class CustomerPage extends JDialog {
     private JCheckBox tracksCheckBox;
     private JCheckBox carriagesCheckBox;
     private JCheckBox bundlesCheckBox;
+    public JTable table1;
 
+    private DefaultTableModel tableModel;
     private JFrame frame;
 
     public CustomerPage(int userID) {
@@ -36,6 +39,8 @@ public class CustomerPage extends JDialog {
         setModal(true);
 
         this.userID = userID;
+        tableModel = new DefaultTableModel(new Object[]{"BrandName", "ProductName", "Price"}, 0);
+        PullProducts();
 
         //testing code
         //System.out.println(user.getID);
@@ -90,7 +95,13 @@ public class CustomerPage extends JDialog {
             String query = "SELECT BrandName,ProductName,Price FROM Products";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println(resultSet.toString());
+            tableModel.setRowCount(0);
+            while (resultSet.next()) {
+                String BrandName = resultSet.getString("BrandName");
+                String ProductName = resultSet.getString("ProductName");
+                String Price = resultSet.getString("Price");
+                tableModel.addRow(new Object[]{BrandName, ProductName, Price});
+            }
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());
         } finally {
@@ -171,8 +182,10 @@ public class CustomerPage extends JDialog {
         button5 = new JButton();
         button5.setText("Button");
         panel2.add(button5, new GridConstraints(0, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final Spacer spacer4 = new Spacer();
-        contentPane.add(spacer4, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        final JScrollPane scrollPane1 = new JScrollPane();
+        contentPane.add(scrollPane1, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        table1 = new JTable();
+        scrollPane1.setViewportView(table1);
     }
 
     /**
