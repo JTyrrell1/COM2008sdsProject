@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="791b511d-4af5-41b4-a3f1-8d46a7fe4240" name="Changes" comment="linked gui pages" />
+    <list default="true" id="791b511d-4af5-41b4-a3f1-8d46a7fe4240" name="Changes" comment="created signup code" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,9 +54,10 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -85,6 +86,8 @@
       <workItem from="1700144007903" duration="4467000" />
       <workItem from="1700734845387" duration="8399000" />
       <workItem from="1700753856023" duration="1749000" />
+      <workItem from="1700767073539" duration="2157000" />
+      <workItem from="1700829416562" duration="2817000" />
     </task>
     <task id="LOCAL-00001" summary="started work on gui">
       <option name="closed" value="true" />
@@ -158,7 +161,23 @@
       <option name="project" value="LOCAL" />
       <updated>1700754206255</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="created base outline for signup code">
+      <option name="closed" value="true" />
+      <created>1700830504820</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1700830504820</updated>
+    </task>
+    <task id="LOCAL-00011" summary="created signup code">
+      <option name="closed" value="true" />
+      <created>1700831661038</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1700831661038</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,6 +205,8 @@
     <MESSAGE value="connected and setup database" />
     <MESSAGE value="linked login to database" />
     <MESSAGE value="linked gui pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="linked gui pages" />
+    <MESSAGE value="created base outline for signup code" />
+    <MESSAGE value="created signup code" />
+    <option name="LAST_COMMIT_MESSAGE" value="created signup code" />
   </component>
 </project>

@@ -108,7 +108,7 @@ public class GUI extends JDialog {
         }
     }
 
-    private void UserSignUp(String email, String password){
+    private void UserSignUp(String email, String password) {
         Connection connection = null;
         try {
             connection = DatabaseConnectionHandler.getConnection();
@@ -119,15 +119,22 @@ public class GUI extends JDialog {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 JOptionPane.showMessageDialog(frame, "Account already exists");
             } else {
-                // insert account creation code here
-                String query2 = "INSERT INTO Users (email, password) VALUES(?, ?)";
+                String IDquery = "SELECT MAX(UserID) FROM Users";
+                PreparedStatement IDStatement = connection.prepareStatement(IDquery);
+                ResultSet UserID = IDStatement.executeQuery();
+                int UserVal = UserID.getInt(0);
+                UserVal = UserVal + 1;
+
+
+                String query2 = "INSERT INTO Users (userid, email, password) VALUES(?, ?, ?)";
                 PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
-                preparedStatement2.setString(1, email);
-                preparedStatement2.setString(2, password);
-                preparedStatement2.executeQuery();
+                preparedStatement2.setInt(1, UserVal);
+                preparedStatement2.setString(2, email);
+                preparedStatement2.setString(3, password);
+                preparedStatement2.executeUpdate();
                 JOptionPane.showMessageDialog(frame, "Account created");
             }
         } catch (SQLException sqle) {
@@ -188,7 +195,7 @@ public class GUI extends JDialog {
         label1.setText("Password");
         panel3.add(label1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label2 = new JLabel();
-        label2.setText("UserName");
+        label2.setText("Email");
         panel3.add(label2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
