@@ -5,6 +5,10 @@ import com.intellij.uiDesigner.core.Spacer;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class CustomerPage extends JDialog {
     private JPanel contentPane;
@@ -23,6 +27,8 @@ public class CustomerPage extends JDialog {
     private JCheckBox tracksCheckBox;
     private JCheckBox carriagesCheckBox;
     private JCheckBox bundlesCheckBox;
+
+    private JFrame frame;
 
     public CustomerPage() {
         setContentPane(contentPane);
@@ -69,13 +75,33 @@ public class CustomerPage extends JDialog {
     }
 
     private void PullProducts(){
+        Connection connection = null;
+        try{
+            connection = DatabaseConnectionHandler.getConnection();
+            String query = "SELECT BrandName,ProductName,Price FROM Products";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            System.out.println(resultSet.toString());
+        }catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());
+        } finally {
+            try {
+                if (connection != null && !connection.isClosed()) {
+                    connection.close();
+                }
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
         
+
     }
 
     public static void main() {
         CustomerPage dialog = new CustomerPage();
         dialog.pack();
         dialog.setVisible(true);
+        dialog.PullProducts();
     }
 
     {
