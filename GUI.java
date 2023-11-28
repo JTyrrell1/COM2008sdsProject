@@ -125,15 +125,17 @@ public class GUI extends JDialog {
                 String IDquery = "SELECT MAX(UserID) FROM Users";
                 PreparedStatement IDStatement = connection.prepareStatement(IDquery);
                 ResultSet UserID = IDStatement.executeQuery();
-                int UserVal = UserID.getInt(0);
+                UserID.next();
+                int UserVal = UserID.getInt(1);
                 UserVal = UserVal + 1;
 
 
-                String query2 = "INSERT INTO Users (userid, email, password) VALUES(?, ?, ?)";
+                String query2 = "INSERT INTO Users (userid, email, password,usertype) VALUES(?, ?, ?, ?)";
                 PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
                 preparedStatement2.setInt(1, UserVal);
                 preparedStatement2.setString(2, email);
                 preparedStatement2.setString(3, password);
+                preparedStatement2.setString(4, "0");
                 preparedStatement2.executeUpdate();
                 JOptionPane.showMessageDialog(frame, "Account created");
             }
