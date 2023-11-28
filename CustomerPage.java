@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class testing extends JDialog {
+public class CustomerPage extends JDialog {
     private JPanel contentPane;
     private ButtonGroup Selector1;
     private JButton buttonOK;
@@ -24,7 +24,7 @@ public class testing extends JDialog {
     private JCheckBox carriagesCheckBox;
     private JCheckBox bundlesCheckBox;
 
-    public testing() {
+    public CustomerPage() {
         setContentPane(contentPane);
         setModal(true);
         //getRootPane().setDefaultButton(buttonOK);
@@ -69,7 +69,7 @@ public class testing extends JDialog {
     }
 
     public static void main() {
-        testing dialog = new testing();
+        CustomerPage dialog = new CustomerPage();
         dialog.pack();
         dialog.setVisible(true);
     }

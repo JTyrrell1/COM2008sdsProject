@@ -9,7 +9,7 @@ import java.util.Stack;
 import java.sql.*;
 
 
-public class GUI extends JDialog {
+public class LoginPage extends JDialog {
 
     private JPanel contentPane;
     private JButton buttonOK;
@@ -19,7 +19,7 @@ public class GUI extends JDialog {
 
     private JFrame frame;
 
-    public GUI() {
+    public LoginPage() {
 
         setContentPane(contentPane);
         getRootPane().setDefaultButton(buttonOK);
@@ -32,7 +32,7 @@ public class GUI extends JDialog {
 
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onCancel();
+                onSignUp();
             }
         });
 
@@ -59,7 +59,11 @@ public class GUI extends JDialog {
         dispose();
     }
 
-    private void onCancel() {
+    private void onCancel(){
+        dispose();
+    }
+
+    private void onSignUp() {
         String email = textField1.getText();
         char[] password = passwordField1.getPassword();
         UserSignUp(email, new String(password));
@@ -67,7 +71,7 @@ public class GUI extends JDialog {
     }
 
     public static void main() {
-        GUI dialog = new GUI();
+        LoginPage dialog = new LoginPage();
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -89,7 +93,7 @@ public class GUI extends JDialog {
 
             if (resultSet.next()) {
                 JOptionPane.showMessageDialog(frame, "Login successful!");
-                testing maingui = new testing();
+                CustomerPage maingui = new CustomerPage();
                 maingui.main();
             } else {
                 JOptionPane.showMessageDialog(frame, "Invalid email or password.");
