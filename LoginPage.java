@@ -139,7 +139,7 @@ public class LoginPage extends JDialog {
                 preparedStatement2.setInt(1, UserVal);
                 preparedStatement2.setString(2, email);
                 preparedStatement2.setString(3, password);
-                preparedStatement2.setString(4, "0");
+                preparedStatement2.setString(4, "Customer");
                 preparedStatement2.executeUpdate();
                 JOptionPane.showMessageDialog(frame, "Account created");
             }
