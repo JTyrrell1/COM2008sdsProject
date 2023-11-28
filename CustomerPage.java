@@ -60,12 +60,6 @@ public class CustomerPage extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-
-        button1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
     }
 
     private void onOK() {
@@ -77,6 +71,10 @@ public class CustomerPage extends JDialog {
     private void onCancel() {
         // add your code here if necessary
         dispose();
+    }
+
+    private void PullProducts(){
+        
     }
 
     public static void main(User user) {
