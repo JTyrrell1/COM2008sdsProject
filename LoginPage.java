@@ -7,9 +7,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Stack;
 import java.sql.*;
+import java.util.ArrayList;
 
 
-public class GUI extends JDialog {
+public class LoginPage extends JDialog {
 
     private JPanel contentPane;
     private JButton buttonOK;
@@ -19,7 +20,7 @@ public class GUI extends JDialog {
 
     private JFrame frame;
 
-    public GUI() {
+    public LoginPage() {
 
         setContentPane(contentPane);
         getRootPane().setDefaultButton(buttonOK);
@@ -32,7 +33,7 @@ public class GUI extends JDialog {
 
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onCancel();
+                onSignUp();
             }
         });
 
@@ -55,11 +56,23 @@ public class GUI extends JDialog {
     private void onOK() {
         String email = textField1.getText();
         char[] password = passwordField1.getPassword();
-        authenticateUser(email, new String(password));
+        if ((email != "") && (new String(password) != "") && (email.contains(" ") == false) && (new String(password).contains(" ") == false)){
+            authenticateUser(email, new String(password));
+        }
+        else if ((email.contains(" ") == false) && (new String(password).contains(" ") == false)) {
+            JOptionPane.showMessageDialog(frame, "Email or Password has been left blank.");
+        }
+        else{
+            JOptionPane.showMessageDialog(frame, "Email or Password contains invalid characters.");
+        }
         dispose();
     }
 
-    private void onCancel() {
+    private void onCancel(){
+        dispose();
+    }
+
+    private void onSignUp() {
         String email = textField1.getText();
         char[] password = passwordField1.getPassword();
         UserSignUp(email, new String(password));
@@ -67,7 +80,7 @@ public class GUI extends JDialog {
     }
 
     public static void main() {
-        GUI dialog = new GUI();
+        LoginPage dialog = new LoginPage();
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -89,8 +102,42 @@ public class GUI extends JDialog {
 
             if (resultSet.next()) {
                 JOptionPane.showMessageDialog(frame, "Login successful!");
-                testing maingui = new testing();
-                maingui.main();
+
+
+                int userID = resultSet.getInt(1);
+                String emailAddress = resultSet.getString(2);
+                String forename = resultSet.getString(4);
+                String surname = resultSet.getString(5);
+                UserType userType = UserType.valueOf(resultSet.getString(6).toUpperCase());
+                int addressID = resultSet.getInt(7);
+                int bankID = resultSet.getInt(8);
+
+
+                String query2 = "SELECT * FROM Orders WHERE UserID = ?";
+                PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
+                preparedStatement.setInt(1, userID);
+
+                ResultSet resultSet2 = preparedStatement2.executeQuery();
+
+                ArrayList<Order> retrievedOrders = new ArrayList<>();
+
+                while (resultSet2.next()) {
+                    int id = resultSet2.getInt(1);
+                    String s = resultSet2.getString(2);
+                    OrderStatus status = OrderStatus.valueOf(s.toUpperCase());
+                    int pid = resultSet2.getInt(3);
+                    Order o = new Order(id, status, pid);
+                    retrievedOrders.add(o);
+                }
+
+                Order[] orders = retrievedOrders.toArray(new Order[0]);
+
+
+                User user = new User(userID, emailAddress, forename, surname, addressID, bankID, orders, userType);
+
+
+                CustomerPage maingui = new CustomerPage(user);
+                maingui.main(user);
             } else {
                 JOptionPane.showMessageDialog(frame, "Invalid email or password.");
             }
@@ -125,15 +172,17 @@ public class GUI extends JDialog {
                 String IDquery = "SELECT MAX(UserID) FROM Users";
                 PreparedStatement IDStatement = connection.prepareStatement(IDquery);
                 ResultSet UserID = IDStatement.executeQuery();
-                int UserVal = UserID.getInt(0);
+                UserID.next();
+                int UserVal = UserID.getInt(1);
                 UserVal = UserVal + 1;
 
 
-                String query2 = "INSERT INTO Users (userid, email, password) VALUES(?, ?, ?)";
+                String query2 = "INSERT INTO Users (userid, email, password,usertype) VALUES(?, ?, ?, ?)";
                 PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
                 preparedStatement2.setInt(1, UserVal);
                 preparedStatement2.setString(2, email);
                 preparedStatement2.setString(3, password);
+                preparedStatement2.setString(4, "Customer");
                 preparedStatement2.executeUpdate();
                 JOptionPane.showMessageDialog(frame, "Account created");
             }

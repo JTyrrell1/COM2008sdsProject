@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\JTyrr\\Downloads\\mysql-connector-java-8.0.27 (1).jar",
+        "c:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.2.5\\lib\\forms_rt.jar"
+    ]
+}

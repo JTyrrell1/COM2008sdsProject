@@ -2,23 +2,19 @@ import java.util.Date;
 
 public class Order {
     
-    private int orderNumber;
-    private Date orderDate;
-    private double orderCost;
+    private int orderID;
     private OrderStatus orderStatus;
-    private OrderLine[] orderLines;
-    
+    private int productID;
+
     /**
-     * @param orderNumber
-     * @param orderDate
-     * @param orderCost
+     * @param orderID
      * @param orderStatus
+     * @param productID
      */
-    public Order(int orderNumber, Date orderDate, double orderCost, OrderStatus orderStatus) {
-        this.orderNumber = orderNumber;
-        this.orderDate = orderDate;
-        this.orderCost = orderCost;
+    public Order(int orderID, OrderStatus orderStatus, int productID) {
+        this.orderID = orderID;
         this.orderStatus = orderStatus;
+        this.productID = productID;
     }
     
     
