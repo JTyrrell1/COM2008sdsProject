@@ -61,6 +61,7 @@ public class CustomerPage extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
     }
 
     private void onOK() {
@@ -81,6 +82,7 @@ public class CustomerPage extends JDialog {
             String query = "SELECT BrandName,ProductName,Price FROM Products";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
+            int RowCount = resultSet.getRowCount();
             System.out.println(resultSet.toString());
         }catch (SQLException sqle) {
             JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());
@@ -99,9 +101,9 @@ public class CustomerPage extends JDialog {
 
     public static void main() {
         CustomerPage dialog = new CustomerPage();
+        dialog.PullProducts();
         dialog.pack();
         dialog.setVisible(true);
-        dialog.PullProducts();
     }
 
     {
