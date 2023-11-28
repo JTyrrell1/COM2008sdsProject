@@ -9,7 +9,7 @@ import java.util.Stack;
 import java.sql.*;
 
 
-public class GUI extends JDialog {
+public class LoginPage extends JDialog {
 
     private JPanel contentPane;
     private JButton buttonOK;
@@ -19,7 +19,7 @@ public class GUI extends JDialog {
 
     private JFrame frame;
 
-    public GUI() {
+    public LoginPage() {
 
         setContentPane(contentPane);
         getRootPane().setDefaultButton(buttonOK);
@@ -32,7 +32,7 @@ public class GUI extends JDialog {
 
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onCancel();
+                onSignUp();
             }
         });
 
@@ -55,11 +55,23 @@ public class GUI extends JDialog {
     private void onOK() {
         String email = textField1.getText();
         char[] password = passwordField1.getPassword();
-        authenticateUser(email, new String(password));
+        if ((email != "") && (new String(password) != "") && (email.contains(" ") == false) && (new String(password).contains(" ") == false)){
+            authenticateUser(email, new String(password));
+        }
+        else if ((email.contains(" ") == false) && (new String(password).contains(" ") == false)) {
+            JOptionPane.showMessageDialog(frame, "Email or Password has been left blank.");
+        }
+        else{
+            JOptionPane.showMessageDialog(frame, "Email or Password contains invalid characters.");
+        }
         dispose();
     }
 
-    private void onCancel() {
+    private void onCancel(){
+        dispose();
+    }
+
+    private void onSignUp() {
         String email = textField1.getText();
         char[] password = passwordField1.getPassword();
         UserSignUp(email, new String(password));
@@ -67,7 +79,7 @@ public class GUI extends JDialog {
     }
 
     public static void main() {
-        GUI dialog = new GUI();
+        LoginPage dialog = new LoginPage();
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -89,7 +101,7 @@ public class GUI extends JDialog {
 
             if (resultSet.next()) {
                 JOptionPane.showMessageDialog(frame, "Login successful!");
-                testing maingui = new testing();
+                CustomerPage maingui = new CustomerPage();
                 maingui.main();
             } else {
                 JOptionPane.showMessageDialog(frame, "Invalid email or password.");
@@ -125,15 +137,17 @@ public class GUI extends JDialog {
                 String IDquery = "SELECT MAX(UserID) FROM Users";
                 PreparedStatement IDStatement = connection.prepareStatement(IDquery);
                 ResultSet UserID = IDStatement.executeQuery();
-                int UserVal = UserID.getInt(0);
+                UserID.next();
+                int UserVal = UserID.getInt(1);
                 UserVal = UserVal + 1;
 
 
-                String query2 = "INSERT INTO Users (userid, email, password) VALUES(?, ?, ?)";
+                String query2 = "INSERT INTO Users (userid, email, password,usertype) VALUES(?, ?, ?, ?)";
                 PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
                 preparedStatement2.setInt(1, UserVal);
                 preparedStatement2.setString(2, email);
                 preparedStatement2.setString(3, password);
+                preparedStatement2.setString(4, "Customer");
                 preparedStatement2.executeUpdate();
                 JOptionPane.showMessageDialog(frame, "Account created");
             }

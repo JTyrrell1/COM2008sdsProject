@@ -18,7 +18,7 @@ public class ShoppingSystem {
                 
                 //need to get User[] users, Product[] products and Order[] orders from database
                 //ShoppingSystem shoppingSystem = new ShoppingSystem(users, products, orders);
-                final GUI window = new GUI();
+                final LoginPage window = new LoginPage();
                 window.main();
 
 
