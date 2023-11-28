@@ -123,7 +123,7 @@ public class LoginPage extends JDialog {
                 User user = new User(userID, emailAddress, forename, surname, addressID, bankID, orders, userType);
 
 
-                MainPage maingui = new MainPage(user);
+                CustomerPage maingui = new CustomerPage(user);
                 maingui.main(user);
             } else {
                 JOptionPane.showMessageDialog(frame, "Invalid email or password.");

@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MainPage extends JDialog {
+public class CustomerPage extends JDialog {
     private JPanel contentPane;
     private ButtonGroup Selector1;
     private JButton buttonOK;
@@ -24,7 +24,7 @@ public class MainPage extends JDialog {
     private JCheckBox carriagesCheckBox;
     private JCheckBox bundlesCheckBox;
 
-        public MainPage(User user) {
+        public CustomerPage(User user) {
         setContentPane(contentPane);
         setModal(true);
 
@@ -80,7 +80,7 @@ public class MainPage extends JDialog {
     }
 
     public static void main(User user) {
-        MainPage dialog = new MainPage(user);
+        CustomerPage dialog = new CustomerPage(user);
         dialog.pack();
         dialog.setVisible(true);
     }
