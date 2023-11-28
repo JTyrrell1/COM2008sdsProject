@@ -5,6 +5,10 @@ import com.intellij.uiDesigner.core.Spacer;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class CustomerPage extends JDialog {
     private JPanel contentPane;
@@ -24,9 +28,16 @@ public class CustomerPage extends JDialog {
     private JCheckBox carriagesCheckBox;
     private JCheckBox bundlesCheckBox;
 
-    public CustomerPage() {
+    private JFrame frame;
+
+        public CustomerPage(User user) {
         setContentPane(contentPane);
         setModal(true);
+
+        //testing code
+            //System.out.println(user.getID);
+
+
         //getRootPane().setDefaultButton(buttonOK);
 
         //buttonOK.addActionListener(new ActionListener() {
@@ -55,6 +66,7 @@ public class CustomerPage extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
     }
 
     private void onOK() {
@@ -69,7 +81,27 @@ public class CustomerPage extends JDialog {
     }
 
     private void PullProducts(){
+        Connection connection = null;
+        try{
+            connection = DatabaseConnectionHandler.getConnection();
+            String query = "SELECT BrandName,ProductName,Price FROM Products";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int RowCount = resultSet.getRowCount();
+            System.out.println(resultSet.toString());
+        }catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());
+        } finally {
+            try {
+                if (connection != null && !connection.isClosed()) {
+                    connection.close();
+                }
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
         
+
     }
 
     public static void main() {
