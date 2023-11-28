@@ -108,16 +108,16 @@ public class LoginPage extends JDialog {
                 String emailAddress = resultSet.getString(2);
                 String forename = resultSet.getString(4);
                 String surname = resultSet.getString(5);
-                String userType = resultSet.getString(6);
+                UserType userType = UserType.valueOf(resultSet.getString(6).toUpperCase());
                 int addressID = resultSet.getInt(7);
                 int bankID = resultSet.getInt(8);
 
 
                 String query2 = "SELECT * FROM Orders WHERE UserID = ?";
-                PreparedStatement preparedStatement2 = connection.prepareStatement(query);
+                PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
                 preparedStatement.setInt(1, userID);
 
-                ResultSet resultSet2 = preparedStatement.executeQuery();
+                ResultSet resultSet2 = preparedStatement2.executeQuery();
 
                 ArrayList<Order> retrievedOrders = new ArrayList<>();
 
