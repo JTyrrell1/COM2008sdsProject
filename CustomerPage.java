@@ -68,6 +68,10 @@ public class CustomerPage extends JDialog {
         dispose();
     }
 
+    private void PullProducts(){
+        
+    }
+
     public static void main() {
         CustomerPage dialog = new CustomerPage();
         dialog.pack();
