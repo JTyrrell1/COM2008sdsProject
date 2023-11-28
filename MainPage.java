@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class testing extends JDialog {
+public class MainPage extends JDialog {
     private JPanel contentPane;
     private ButtonGroup Selector1;
     private JButton buttonOK;
@@ -24,9 +24,14 @@ public class testing extends JDialog {
     private JCheckBox carriagesCheckBox;
     private JCheckBox bundlesCheckBox;
 
-    public testing() {
+        public MainPage(User user) {
         setContentPane(contentPane);
         setModal(true);
+
+        //testing code
+            //System.out.println(user.getID);
+
+
         //getRootPane().setDefaultButton(buttonOK);
 
         //buttonOK.addActionListener(new ActionListener() {
@@ -55,6 +60,12 @@ public class testing extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        button1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
     private void onOK() {
@@ -68,8 +79,8 @@ public class testing extends JDialog {
         dispose();
     }
 
-    public static void main() {
-        testing dialog = new testing();
+    public static void main(User user) {
+        MainPage dialog = new MainPage(user);
         dialog.pack();
         dialog.setVisible(true);
     }
