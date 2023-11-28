@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerPage extends JDialog {
+    private int userID;
     private JPanel contentPane;
     private ButtonGroup Selector1;
     private JButton buttonOK;
@@ -30,12 +31,14 @@ public class CustomerPage extends JDialog {
 
     private JFrame frame;
 
-        public CustomerPage(User user) {
+    public CustomerPage(int userID) {
         setContentPane(contentPane);
         setModal(true);
 
+        this.userID = userID;
+
         //testing code
-            //System.out.println(user.getID);
+        //System.out.println(user.getID);
 
 
         //getRootPane().setDefaultButton(buttonOK);
@@ -80,16 +83,15 @@ public class CustomerPage extends JDialog {
         dispose();
     }
 
-    private void PullProducts(){
+    private void PullProducts() {
         Connection connection = null;
-        try{
+        try {
             connection = DatabaseConnectionHandler.getConnection();
             String query = "SELECT BrandName,ProductName,Price FROM Products";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            int RowCount = resultSet.getRowCount();
             System.out.println(resultSet.toString());
-        }catch (SQLException sqle) {
+        } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());
         } finally {
             try {
@@ -100,12 +102,12 @@ public class CustomerPage extends JDialog {
                 sqle.printStackTrace();
             }
         }
-        
+
 
     }
 
-    public static void main() {
-        CustomerPage dialog = new CustomerPage();
+    public static void main(int userID) {
+        CustomerPage dialog = new CustomerPage(userID);
         dialog.pack();
         dialog.setVisible(true);
     }
