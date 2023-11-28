@@ -4,18 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="791b511d-4af5-41b4-a3f1-8d46a7fe4240" name="Changes" comment="created signup code" />
+    <list default="true" id="92e6eff1-5d3a-4c91-bda9-4a95531059bd" name="Changes" comment="nothing">
+      <change beforePath="$PROJECT_DIR$/out/production/COM2008sdsProject/.idea/COM2008sdsProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/COM2008sdsProject/.idea/COM2008sdsProject.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/COM2008sdsProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/COM2008sdsProject/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/COM2008sdsProject/GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/COM2008sdsProject/GUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/COM2008sdsProject/GUI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/COM2008sdsProject/GUI$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/COM2008sdsProject/GUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/COM2008sdsProject/GUI$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/COM2008sdsProject/GUI$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/COM2008sdsProject/GUI$4.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -24,189 +24,107 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 4
+  &quot;associatedIndex&quot;: 3
 }</component>
-  <component name="ProjectId" id="2XqME4fDHuJHToQhQHgSwhU6y84" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2XTygNg7rjwOcFgzUMIimAHYTyW" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.STATE&quot;: &quot;right&quot;,
-    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW&quot;: &quot;true&quot;,
-    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.STATE&quot;: &quot;left&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/JTyrr/sqlconnector/mysql-connector.jar&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/2nd year/python labs/01_getting_started/01_getting_started/data/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\JTyrr\IdeaProjects\COM2008sdsProject" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="" />
-    </key>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="791b511d-4af5-41b4-a3f1-8d46a7fe4240" name="Changes" comment="" />
-      <created>1699352042584</created>
+      <changelist id="92e6eff1-5d3a-4c91-bda9-4a95531059bd" name="Changes" comment="" />
+      <created>1698667474683</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1699352042584</updated>
-      <workItem from="1699352043636" duration="244000" />
-      <workItem from="1699352376979" duration="4545000" />
-      <workItem from="1699449693926" duration="5299000" />
-      <workItem from="1699976386697" duration="5153000" />
-      <workItem from="1700061244986" duration="2829000" />
-      <workItem from="1700137076021" duration="1326000" />
-      <workItem from="1700144007903" duration="4467000" />
-      <workItem from="1700734845387" duration="8399000" />
-      <workItem from="1700753856023" duration="1749000" />
-      <workItem from="1700767073539" duration="2157000" />
-      <workItem from="1700829416562" duration="2817000" />
+      <updated>1698667474683</updated>
+      <workItem from="1698667475805" duration="278000" />
+      <workItem from="1699268440282" duration="820000" />
+      <workItem from="1699444760665" duration="1233000" />
+      <workItem from="1700140029705" duration="2371000" />
+      <workItem from="1700749217978" duration="439000" />
+      <workItem from="1700749679843" duration="3443000" />
+      <workItem from="1700756917311" duration="1688000" />
+      <workItem from="1700826887953" duration="2887000" />
     </task>
-    <task id="LOCAL-00001" summary="started work on gui">
+    <task id="LOCAL-00001" summary="nothing">
       <option name="closed" value="true" />
-      <created>1699363039420</created>
+      <created>1699445106834</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1699363039420</updated>
+      <updated>1699445106834</updated>
     </task>
-    <task id="LOCAL-00002" summary="worked on gui">
+    <task id="LOCAL-00002" summary="nothing">
       <option name="closed" value="true" />
-      <created>1699460717126</created>
+      <created>1700750616776</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1699460717126</updated>
+      <updated>1700750616776</updated>
     </task>
-    <task id="LOCAL-00003" summary="got login GUI working">
+    <task id="LOCAL-00003" summary="nothing">
       <option name="closed" value="true" />
-      <created>1699982560927</created>
+      <created>1700750636135</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1699982560927</updated>
+      <updated>1700750636135</updated>
     </task>
-    <task id="LOCAL-00004" summary="worked on main menu">
+    <task id="LOCAL-00004" summary="nothing">
       <option name="closed" value="true" />
-      <created>1700138735248</created>
+      <created>1700750694080</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1700138735248</updated>
+      <updated>1700750694080</updated>
     </task>
-    <task id="LOCAL-00005" summary="added connection handler and fixed gui code">
+    <task id="LOCAL-00005" summary="nothing">
       <option name="closed" value="true" />
-      <created>1700735107166</created>
+      <created>1700756949587</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1700735107166</updated>
+      <updated>1700756949587</updated>
     </task>
-    <task id="LOCAL-00006" summary="fixed more gui">
+    <task id="LOCAL-00006" summary="nothing">
       <option name="closed" value="true" />
-      <created>1700736398665</created>
+      <created>1700756993056</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1700736398665</updated>
+      <updated>1700756993056</updated>
     </task>
-    <task id="LOCAL-00007" summary="connected and setup database">
-      <option name="closed" value="true" />
-      <created>1700741298263</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1700741298263</updated>
-    </task>
-    <task id="LOCAL-00008" summary="linked login to database">
-      <option name="closed" value="true" />
-      <created>1700742577618</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1700742577618</updated>
-    </task>
-    <task id="LOCAL-00009" summary="linked gui pages">
-      <option name="closed" value="true" />
-      <created>1700754206255</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1700754206255</updated>
-    </task>
-    <task id="LOCAL-00010" summary="created base outline for signup code">
-      <option name="closed" value="true" />
-      <created>1700830504820</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1700830504820</updated>
-    </task>
-    <task id="LOCAL-00011" summary="created signup code">
-      <option name="closed" value="true" />
-      <created>1700831661038</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1700831661038</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="started work on gui" />
-    <MESSAGE value="worked on gui" />
-    <MESSAGE value="got login GUI working" />
-    <MESSAGE value="worked on main menu" />
-    <MESSAGE value="added connection handler and fixed gui code" />
-    <MESSAGE value="fixed more gui" />
-    <MESSAGE value="connected and setup database" />
-    <MESSAGE value="linked login to database" />
-    <MESSAGE value="linked gui pages" />
-    <MESSAGE value="created base outline for signup code" />
-    <MESSAGE value="created signup code" />
-    <option name="LAST_COMMIT_MESSAGE" value="created signup code" />
+    <MESSAGE value="nothing" />
+    <option name="LAST_COMMIT_MESSAGE" value="nothing" />
   </component>
 </project>
