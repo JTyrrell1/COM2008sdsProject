@@ -60,7 +60,9 @@ public class GUI extends JDialog {
     }
 
     private void onCancel() {
-        // add your code here if necessary
+        String email = textField1.getText();
+        char[] password = passwordField1.getPassword();
+        UserSignUp(email, new String(password));
         dispose();
     }
 
@@ -93,6 +95,48 @@ public class GUI extends JDialog {
                 JOptionPane.showMessageDialog(frame, "Invalid email or password.");
             }
 
+        } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());
+        } finally {
+            try {
+                if (connection != null && !connection.isClosed()) {
+                    connection.close();
+                }
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
+    }
+
+    private void UserSignUp(String email, String password) {
+        Connection connection = null;
+        try {
+            connection = DatabaseConnectionHandler.getConnection();
+
+            String query = "SELECT * FROM Users WHERE email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                JOptionPane.showMessageDialog(frame, "Account already exists");
+            } else {
+                String IDquery = "SELECT MAX(UserID) FROM Users";
+                PreparedStatement IDStatement = connection.prepareStatement(IDquery);
+                ResultSet UserID = IDStatement.executeQuery();
+                int UserVal = UserID.getInt(0);
+                UserVal = UserVal + 1;
+
+
+                String query2 = "INSERT INTO Users (userid, email, password) VALUES(?, ?, ?)";
+                PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
+                preparedStatement2.setInt(1, UserVal);
+                preparedStatement2.setString(2, email);
+                preparedStatement2.setString(3, password);
+                preparedStatement2.executeUpdate();
+                JOptionPane.showMessageDialog(frame, "Account created");
+            }
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());
         } finally {
@@ -151,7 +195,7 @@ public class GUI extends JDialog {
         label1.setText("Password");
         panel3.add(label1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label2 = new JLabel();
-        label2.setText("UserName");
+        label2.setText("Email");
         panel3.add(label2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
