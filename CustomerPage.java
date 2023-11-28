@@ -30,9 +30,14 @@ public class CustomerPage extends JDialog {
 
     private JFrame frame;
 
-    public CustomerPage() {
+        public CustomerPage(User user) {
         setContentPane(contentPane);
         setModal(true);
+
+        //testing code
+            //System.out.println(user.getID);
+
+
         //getRootPane().setDefaultButton(buttonOK);
 
         //buttonOK.addActionListener(new ActionListener() {
@@ -101,7 +106,6 @@ public class CustomerPage extends JDialog {
 
     public static void main() {
         CustomerPage dialog = new CustomerPage();
-        dialog.PullProducts();
         dialog.pack();
         dialog.setVisible(true);
     }

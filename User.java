@@ -1,34 +1,35 @@
 public class User {
     
-    private String userID;
+    private int userID;
     private String email;
     private String password;
     private String forename;
     private String surname;
-    private Address address;
-    private BankAccount bankAccount;
+    private int addressID;
+    private int bankID;
     private Order[] orders;
+    private String userType;
     
     /**
      * @param userID
      * @param email
-     * @param password
      * @param forename
      * @param surname
-     * @param address
-     * @param bankAccount
+     * @param addressID
+     * @param bankID
      * @param orders
+     * @param userType
      */
-    public User(String userID, String email, String password, String forename, String surname, Address address,
-            BankAccount bankAccount, Order[] orders) {
+    public User(int userID, String email, String forename, String surname, int addressID,
+            int bankID, Order[] orders, String userType) {
         this.userID = userID;
         this.email = email;
-        this.password = password;
         this.forename = forename;
         this.surname = surname;
-        this.address = address;
-        this.bankAccount = bankAccount;
+        this.addressID = addressID;
+        this.bankID = bankID;
         this.orders = orders;
+        this.userType = userType;
     }
     
     

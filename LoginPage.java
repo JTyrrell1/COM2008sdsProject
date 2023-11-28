@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Stack;
 import java.sql.*;
+import java.util.ArrayList;
 
 
 public class LoginPage extends JDialog {
@@ -101,8 +102,42 @@ public class LoginPage extends JDialog {
 
             if (resultSet.next()) {
                 JOptionPane.showMessageDialog(frame, "Login successful!");
-                CustomerPage maingui = new CustomerPage();
-                maingui.main();
+
+
+                int userID = resultSet.getInt(1);
+                String emailAddress = resultSet.getString(2);
+                String forename = resultSet.getString(4);
+                String surname = resultSet.getString(5);
+                String userType = resultSet.getString(6);
+                int addressID = resultSet.getInt(7);
+                int bankID = resultSet.getInt(8);
+
+
+                String query2 = "SELECT * FROM Orders WHERE UserID = ?";
+                PreparedStatement preparedStatement2 = connection.prepareStatement(query);
+                preparedStatement.setInt(1, userID);
+
+                ResultSet resultSet2 = preparedStatement.executeQuery();
+
+                ArrayList<Order> retrievedOrders = new ArrayList<>();
+
+                while (resultSet2.next()) {
+                    int id = resultSet2.getInt(1);
+                    String s = resultSet2.getString(2);
+                    OrderStatus status = OrderStatus.valueOf(s.toUpperCase());
+                    int pid = resultSet2.getInt(3);
+                    Order o = new Order(id, status, pid);
+                    retrievedOrders.add(o);
+                }
+
+                Order[] orders = retrievedOrders.toArray(new Order[0]);
+
+
+                User user = new User(userID, emailAddress, forename, surname, addressID, bankID, orders, userType);
+
+
+                CustomerPage maingui = new CustomerPage(user);
+                maingui.main(user);
             } else {
                 JOptionPane.showMessageDialog(frame, "Invalid email or password.");
             }
