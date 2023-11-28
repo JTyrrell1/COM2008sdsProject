@@ -11,6 +11,7 @@ public class ManagerPage {
     private DefaultTableModel tableModel;
     private JButton promoteButton;
     private JButton demoteButton;
+    private JButton promoteUserButton;
 
     private JButton returnStaffPage;
 
@@ -38,8 +39,19 @@ public class ManagerPage {
                 int selectedRow = userTable.getSelectedRow();
                 if (selectedRow != -1) {
                     String Email = (String) tableModel.getValueAt(selectedRow, 0);
-                    promoteUser(Email);
+                    promoteUserByEmail(Email);
                     fetchUsers(); // Refresh the table.
+                }
+            }
+        });
+
+        // Create and add the promote user button.
+        promoteButton = new JButton("Promote User to Staff");
+        promoteButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String email = JOptionPane.showInputDialog(frame, "Enter the email of the user to promote:");
+                if (email != null && !email.isEmpty()) {
+                    promoteUserByEmail(email);
                 }
             }
         });
@@ -81,7 +93,7 @@ public class ManagerPage {
         Connection connection = null;
         try {
             connection = DatabaseConnectionHandler.getConnection();
-            String query = "SELECT Email, Forename, Surname, UserType FROM Users"; // Adjust based on your database schema.
+            String query = "SELECT Email, Forename, Surname, UserType FROM UserType = 'Staff'"; // Adjust based on your database schema.
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -104,7 +116,7 @@ public class ManagerPage {
         }
     }
 
-    private void promoteUser(String Email) {
+    private void promoteUserByEmail(String Email) {
         // Implement database update logic to promote the user to staff if they are currently a customer.
         Connection connection = null;
         try {
@@ -175,6 +187,8 @@ public class ManagerPage {
             }
         }
     }
+
+//        frame.add(promoteButton, BorderLayout.SOUTH);
 
     // Main method to start the application.
     public static void main(String[] args) {
