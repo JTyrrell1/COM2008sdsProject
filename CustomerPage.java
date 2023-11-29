@@ -29,7 +29,7 @@ public class CustomerPage extends JDialog {
     private JCheckBox tracksCheckBox;
     private JCheckBox carriagesCheckBox;
     private JCheckBox bundlesCheckBox;
-    public JTable table1;
+    public JTable userTable;
 
     private DefaultTableModel tableModel;
     private JFrame frame;
@@ -39,8 +39,6 @@ public class CustomerPage extends JDialog {
         setModal(true);
 
         this.userID = userID;
-        tableModel = new DefaultTableModel(new Object[]{"BrandName", "ProductName", "Price"}, 0);
-        PullProducts();
 
         //testing code
         //System.out.println(user.getID);
@@ -182,10 +180,8 @@ public class CustomerPage extends JDialog {
         button5 = new JButton();
         button5.setText("Button");
         panel2.add(button5, new GridConstraints(0, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JScrollPane scrollPane1 = new JScrollPane();
-        contentPane.add(scrollPane1, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        table1 = new JTable();
-        scrollPane1.setViewportView(table1);
+        userTable = new JTable();
+        contentPane.add(userTable, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
     }
 
     /**
@@ -195,4 +191,11 @@ public class CustomerPage extends JDialog {
         return contentPane;
     }
 
+    private void createUIComponents() {
+        tableModel = new DefaultTableModel(new Object[]{"Email", "Forename", "Surname", "UserType"}, 0);
+        userTable = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(userTable);
+        frame.add(scrollPane, BorderLayout.CENTER);
+        PullProducts();
+    }
 }
