@@ -81,7 +81,7 @@ public class ManagerPage {
         Connection connection = null;
         try {
             connection = DatabaseConnectionHandler.getConnection();
-            String query = "SELECT Email, Forename, Surname, UserType FROM Users"; // Adjust based on your database schema.
+            String query = "SELECT Email, Forename, Surname, UserType FROM Users";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -105,7 +105,6 @@ public class ManagerPage {
     }
 
     private void promoteUser(String Email) {
-        // Implement database update logic to promote the user to staff if they are currently a customer.
         Connection connection = null;
         try {
             connection = DatabaseConnectionHandler.getConnection();
@@ -141,7 +140,6 @@ public class ManagerPage {
     }
 
     private void demoteUser(String Email) {
-        // Implement database update logic to demote the user to customer if they are currently a staff.
         Connection connection = null;
         try {
             connection = DatabaseConnectionHandler.getConnection();
@@ -186,4 +184,4 @@ public class ManagerPage {
     }
 }
 
-// DatabaseConnectionHandler class needs to be implemented as before.
+

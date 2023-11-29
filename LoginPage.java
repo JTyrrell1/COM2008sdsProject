@@ -56,19 +56,17 @@ public class LoginPage extends JDialog {
     private void onOK() {
         String email = textField1.getText();
         char[] password = passwordField1.getPassword();
-        if ((email != "") && (new String(password) != "") && (email.contains(" ") == false) && (new String(password).contains(" ") == false)){
+        if ((email != "") && (new String(password) != "") && (email.contains(" ") == false) && (new String(password).contains(" ") == false)) {
             authenticateUser(email, new String(password));
-        }
-        else if ((email.contains(" ") == false) && (new String(password).contains(" ") == false)) {
+        } else if ((email.contains(" ") == false) && (new String(password).contains(" ") == false)) {
             JOptionPane.showMessageDialog(frame, "Email or Password has been left blank.");
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(frame, "Email or Password contains invalid characters.");
         }
         dispose();
     }
 
-    private void onCancel(){
+    private void onCancel() {
         dispose();
     }
 
