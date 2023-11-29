@@ -93,9 +93,10 @@ public class ManagerPage {
         Connection connection = null;
         try {
             connection = DatabaseConnectionHandler.getConnection();
-            String query = "SELECT Email, Forename, Surname, UserType FROM UserType = 'Staff'"; // Adjust based on your database schema.
+            String query = "SELECT Email, Forename, Surname, UserType FROM Users WHERE UserType = 'Staff'"; // Adjust based on your database schema.
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
+
 
             // Clear the existing data in the table model.
             tableModel.setRowCount(0);
@@ -136,6 +137,7 @@ public class ManagerPage {
                 updateStmt.executeUpdate();
                 connection.commit(); // Commit the transaction
                 JOptionPane.showMessageDialog(frame, "User promoted to staff successfully.");
+                fetchUsers();
             } else {
                 JOptionPane.showMessageDialog(frame, "User is already a staff member or does not exist.");
             }
