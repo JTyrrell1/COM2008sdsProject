@@ -3,6 +3,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerPage extends JDialog {
+    private int userID;
     private JPanel contentPane;
     private ButtonGroup Selector1;
     private JButton buttonOK;
@@ -27,15 +29,21 @@ public class CustomerPage extends JDialog {
     private JCheckBox tracksCheckBox;
     private JCheckBox carriagesCheckBox;
     private JCheckBox bundlesCheckBox;
+    public JTable table1;
 
+    private DefaultTableModel tableModel;
     private JFrame frame;
 
-        public CustomerPage(User user) {
+    public CustomerPage(int userID) {
         setContentPane(contentPane);
         setModal(true);
 
+        this.userID = userID;
+        tableModel = new DefaultTableModel(new Object[]{"BrandName", "ProductName", "Price"}, 0);
+        PullProducts();
+
         //testing code
-            //System.out.println(user.getID);
+        //System.out.println(user.getID);
 
 
         //getRootPane().setDefaultButton(buttonOK);
@@ -80,16 +88,21 @@ public class CustomerPage extends JDialog {
         dispose();
     }
 
-    private void PullProducts(){
+    private void PullProducts() {
         Connection connection = null;
-        try{
+        try {
             connection = DatabaseConnectionHandler.getConnection();
             String query = "SELECT BrandName,ProductName,Price FROM Products";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            int RowCount = resultSet.getRowCount();
-            System.out.println(resultSet.toString());
-        }catch (SQLException sqle) {
+            tableModel.setRowCount(0);
+            while (resultSet.next()) {
+                String BrandName = resultSet.getString("BrandName");
+                String ProductName = resultSet.getString("ProductName");
+                String Price = resultSet.getString("Price");
+                tableModel.addRow(new Object[]{BrandName, ProductName, Price});
+            }
+        } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());
         } finally {
             try {
@@ -100,12 +113,12 @@ public class CustomerPage extends JDialog {
                 sqle.printStackTrace();
             }
         }
-        
+
 
     }
 
-    public static void main() {
-        CustomerPage dialog = new CustomerPage();
+    public static void main(int userID) {
+        CustomerPage dialog = new CustomerPage(userID);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -169,8 +182,10 @@ public class CustomerPage extends JDialog {
         button5 = new JButton();
         button5.setText("Button");
         panel2.add(button5, new GridConstraints(0, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final Spacer spacer4 = new Spacer();
-        contentPane.add(spacer4, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        final JScrollPane scrollPane1 = new JScrollPane();
+        contentPane.add(scrollPane1, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        table1 = new JTable();
+        scrollPane1.setViewportView(table1);
     }
 
     /**
