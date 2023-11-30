@@ -191,11 +191,4 @@ public class CustomerPage extends JDialog {
         return contentPane;
     }
 
-    private void createUIComponents() {
-        tableModel = new DefaultTableModel(new Object[]{"Email", "Forename", "Surname", "UserType"}, 0);
-        userTable = new JTable(tableModel);
-        JScrollPane scrollPane = new JScrollPane(userTable);
-        frame.add(scrollPane, BorderLayout.CENTER);
-        PullProducts();
-    }
 }
