@@ -149,10 +149,10 @@ public class BetterCustomerPage {
             connection = DatabaseConnectionHandler.getConnection();
 
             // Start building the query
-            String query = "SELECT ProductName, BrandName, Price FROM Products";
+            String query = "SELECT ProductName, BrandName, Price, ProductID FROM Products";
             if (filter != null) {
                 if (filter == "All"){
-                    query = "SELECT ProductName, BrandName, Price FROM Products";
+                    query = "SELECT ProductName, BrandName, Price, ProductID FROM Products";
                 }
                 if (filter == "Tracks") {
                     query += " WHERE ProductCode LIKE 'R%'";
@@ -183,10 +183,11 @@ public class BetterCustomerPage {
                 String ProductName = resultSet.getString("ProductName");
                 String BrandName = resultSet.getString("BrandName");
                 String Price = resultSet.getString("Price");
+                int ProductID = resultSet.getInt("ProductID");
 
 
                 // Add a row to the table model for each product
-                tableModel.addRow(new Object[]{BrandName,ProductName, Price,});
+                tableModel.addRow(new Object[]{BrandName,ProductName, Price, ProductID});
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -203,6 +204,38 @@ public class BetterCustomerPage {
     }
     
     private void AddToCart(int UserID){
+        Connection connection = null;
+        int selectedRow = userTable.getSelectedRow();
+        try{
+            connection = DatabaseConnectionHandler.getConnection();
+
+            String IDquery = "SELECT MAX(OrderID) FROM Orders";
+                PreparedStatement IDStatement = connection.prepareStatement(IDquery);
+                ResultSet OrderID = IDStatement.executeQuery();
+                OrderID.next();
+                int UserVal = OrderID.getInt(1);
+                UserVal = UserVal + 1;
+
+            int ProductID = (int) tableModel.getValueAt(selectedRow, 3);
+
+            String query = "INSERT  into Orders values (?,?,?,?)";
+            PreparedStatement preparedStatement2 = connection.prepareStatement(query);
+            preparedStatement2.setInt(1, UserVal);
+            preparedStatement2.setString(2, "Confirmed");
+            preparedStatement2.setInt(3, ProductID);
+            preparedStatement2.setInt(4, UserID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close the connection
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
     }
 
