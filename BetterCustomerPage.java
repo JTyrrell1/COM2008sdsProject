@@ -14,11 +14,15 @@ public class BetterCustomerPage {
     private JButton OrdersButton;
     private JButton LogOutButton;
 
-    private JCheckBox TrainCheckBox;
-    private JCheckBox TrackCheckBox;
-    private JCheckBox CarriagesCheckBox;
-    private JCheckBox BundlesCheckBox;
+    private JButton TrainCheckBox;
+    private JButton TrackCheckBox;
+    private JButton CarriagesCheckBox;
+    private JButton BundlesCheckBox;
     private int userID;
+    private int i; 
+    private String ButtonName;
+
+    private String[] categories = {"All","Tracks", "Controllers", "LocoMotives", "Rolling Stocks", "Train Sets", "Track Packs"};
 
     public BetterCustomerPage(int userID) {
         this.userID = userID;
@@ -40,12 +44,13 @@ public class BetterCustomerPage {
             public void actionPerformed(ActionEvent e) {
                 final LoginPage window = new LoginPage();
                 window.main();
+                frame.dispose();
             }
         });
 
 
         // Set up the table model.
-        tableModel = new DefaultTableModel(new Object[]{"BrandName", "ProductName", "Price"}, 0);
+        tableModel = new DefaultTableModel(new Object[]{"BrandName", "ProductName", "Price",""}, 0);
 
         // Create the table with the model.
         userTable = new JTable(tableModel);
@@ -61,14 +66,17 @@ public class BetterCustomerPage {
 
         JPanel selectorPanel = new JPanel();
         selectorPanel.setLayout(new BoxLayout(selectorPanel, BoxLayout.Y_AXIS));
-        TrainCheckBox = new JCheckBox("Trains");
-        TrackCheckBox = new JCheckBox("Tracks");
-        CarriagesCheckBox = new JCheckBox("Carriages");
-        BundlesCheckBox = new JCheckBox("Bundles");
-        selectorPanel.add(TrainCheckBox);
-        selectorPanel.add(TrackCheckBox);
-        selectorPanel.add(CarriagesCheckBox);
-        selectorPanel.add(BundlesCheckBox);
+        for (String category : categories) {
+            JButton button = new JButton(category);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Filter the table by the category
+                    fetchProducts(category);
+                }
+            });
+            selectorPanel.add(button);
+        }
 
         frame.add(selectorPanel, BorderLayout.WEST);
 
@@ -111,5 +119,68 @@ public class BetterCustomerPage {
                 new BetterCustomerPage(ID);
             }
         });
+    }
+
+    private void fetchProducts(String filter) {
+        // Clear the existing data in the table model.
+        tableModel.setRowCount(0);
+
+        // Establish a connection and prepare a query.
+        Connection connection = null;
+        try {
+            connection = DatabaseConnectionHandler.getConnection();
+
+            // Start building the query
+            String query = "SELECT ProductName, BrandName, Price FROM Products";
+            if (filter != null) {
+                if (filter == "All"){
+                    query = "SELECT ProductName, BrandName, Price FROM Products";
+                }
+                if (filter == "Tracks") {
+                    query += " WHERE ProductCode LIKE 'R%'";
+                }
+                if (filter == "Controllers") {
+                    query += " WHERE ProductCode LIKE 'C%'";
+                }
+                if (filter == "LocoMotives") {
+                    query += " WHERE ProductCode LIKE 'L%'";
+                }
+                if (filter == "Rolling Stocks") {
+                    query += " WHERE ProductCode LIKE 'S%'";
+                }
+                if (filter == "Train Sets") {
+                    query += " WHERE ProductCode LIKE 'M%'";
+                }
+                if (filter == "Track Packs") {
+                    query += " WHERE ProductCode LIKE 'P%'";
+                }
+            }
+
+            PreparedStatement statement = connection.prepareStatement(query);
+
+
+            // Execute the query and process the results
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String ProductName = resultSet.getString("ProductName");
+                String BrandName = resultSet.getString("BrandName");
+                String Price = resultSet.getString("Price");
+
+
+                // Add a row to the table model for each product
+                tableModel.addRow(new Object[]{BrandName,ProductName, Price,});
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close the connection
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
