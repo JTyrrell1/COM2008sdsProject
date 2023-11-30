@@ -13,6 +13,7 @@ public class BetterCustomerPage {
     private DefaultTableModel tableModel;
     private JButton OrdersButton;
     private JButton LogOutButton;
+    private JButton AddToCartButton;
 
     private JButton TrainCheckBox;
     private JButton TrackCheckBox;
@@ -21,6 +22,7 @@ public class BetterCustomerPage {
     private int userID;
     private int i; 
     private String ButtonName;
+    private JTextField UserInput;
 
     private String[] categories = {"All","Tracks", "Controllers", "LocoMotives", "Rolling Stocks", "Train Sets", "Track Packs"};
 
@@ -50,9 +52,23 @@ public class BetterCustomerPage {
             }
         });
 
+        AddToCartButton = new JButton("Add to cart");
+
+        AddToCartButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                AddToCart(userID);
+            }
+        });
+
+        UserInput = new JTextField();
+
+        JPanel AddPanel = new JPanel();
+        AddPanel.add(UserInput);
+        AddPanel.add(AddToCartButton);
+        frame.add(AddPanel, BorderLayout.SOUTH);
 
         // Set up the table model.
-        tableModel = new DefaultTableModel(new Object[]{"BrandName", "ProductName", "Price",""}, 0);
+        tableModel = new DefaultTableModel(new Object[]{"BrandName", "ProductName", "Price"}, 0);
 
         // Create the table with the model.
         userTable = new JTable(tableModel);
@@ -185,4 +201,10 @@ public class BetterCustomerPage {
             }
         }
     }
+    
+    private void AddToCart(int UserID){
+
+    }
+
+
 }
