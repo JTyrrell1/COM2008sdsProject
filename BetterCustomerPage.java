@@ -36,6 +36,14 @@ public class BetterCustomerPage {
 
         LogOutButton = new JButton("Log out");
 
+        LogOutButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                final LoginPage window = new LoginPage();
+                window.main();
+            }
+        });
+
+
         // Set up the table model.
         tableModel = new DefaultTableModel(new Object[]{"BrandName", "ProductName", "Price"}, 0);
 
