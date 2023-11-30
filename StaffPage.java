@@ -48,6 +48,15 @@ public class StaffPage extends JFrame {
             buttonPanel.add(button);
         }
         addButton = new JButton("Add Product");
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AddProductDialog addDialog = new AddProductDialog(StaffPage.this,1);
+                addDialog.setVisible(true);
+                // After the dialog is disposed, you might want to refresh the product list
+                fetchProducts(null); // Or however you retrieve and display the products
+            }
+        });
+
         deleteButton = new JButton("Delete Product");
 
         deleteButton.addActionListener(new ActionListener() {
@@ -55,6 +64,7 @@ public class StaffPage extends JFrame {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
                     String ProductID = (String) tableModel.getValueAt(selectedRow, 0);
+                    System.out.println(ProductID);
                     deleteProduct(Integer.valueOf(ProductID));
                     fetchProducts(null); // Refresh the table.
                 }
@@ -157,21 +167,11 @@ public class StaffPage extends JFrame {
             // Start transaction
             connection.setAutoCommit(false);
 
-            String Query = "DELETE FROM Products WHERE ProductID = ?";
-            PreparedStatement Stmt = connection.prepareStatement(Query);
-            Stmt.setInt(1, ProductID);
-
-            int rowsAffected = Stmt.executeUpdate();
-            if (rowsAffected > 0) {
-                // Commit the transaction if the deletion was successful
-                connection.commit();
-                JOptionPane.showMessageDialog(this, "Product deleted successfully.");
-            } else {
-                // Rollback if no rows were affected
-                connection.rollback();
-                JOptionPane.showMessageDialog(this, "Product not found.");
-            }
-
+            String checkQuery = "DELETE FROM Products WHERE ProductID = ?";
+            PreparedStatement checkStmt = connection.prepareStatement(checkQuery);
+            checkStmt.setString(1, String.valueOf(ProductID));
+            checkStmt.execute();
+  //          ResultSet resultSet = checkStmt.executeQuery();
         }
         catch (SQLException sqle) {
             JOptionPane.showMessageDialog(this, "Database error: " + sqle.getMessage());
