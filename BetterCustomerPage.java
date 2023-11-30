@@ -13,12 +13,18 @@ public class BetterCustomerPage {
     private DefaultTableModel tableModel;
     private JButton OrdersButton;
     private JButton LogOutButton;
+    private JButton AddToCartButton;
 
-    private JCheckBox TrainCheckBox;
-    private JCheckBox TrackCheckBox;
-    private JCheckBox CarriagesCheckBox;
-    private JCheckBox BundlesCheckBox;
+    private JButton TrainCheckBox;
+    private JButton TrackCheckBox;
+    private JButton CarriagesCheckBox;
+    private JButton BundlesCheckBox;
     private int userID;
+    private int i; 
+    private String ButtonName;
+    private JTextField UserInput;
+
+    private String[] categories = {"All","Tracks", "Controllers", "LocoMotives", "Rolling Stocks", "Train Sets", "Track Packs"};
 
     public BetterCustomerPage(int userID) {
         this.userID = userID;
@@ -30,7 +36,9 @@ public class BetterCustomerPage {
 
         OrdersButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // insert link to orders page
+                CustomerOrders NeoSpace = new CustomerOrders(userID);
+                NeoSpace.main(userID);
+                frame.dispose();
             }
         });
 
@@ -40,9 +48,24 @@ public class BetterCustomerPage {
             public void actionPerformed(ActionEvent e) {
                 final LoginPage window = new LoginPage();
                 window.main();
+                frame.dispose();
             }
         });
 
+        AddToCartButton = new JButton("Add to cart");
+
+        AddToCartButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                AddToCart(userID);
+            }
+        });
+
+        UserInput = new JTextField();
+
+        JPanel AddPanel = new JPanel();
+        AddPanel.add(UserInput);
+        AddPanel.add(AddToCartButton);
+        frame.add(AddPanel, BorderLayout.SOUTH);
 
         // Set up the table model.
         tableModel = new DefaultTableModel(new Object[]{"BrandName", "ProductName", "Price"}, 0);
@@ -61,14 +84,17 @@ public class BetterCustomerPage {
 
         JPanel selectorPanel = new JPanel();
         selectorPanel.setLayout(new BoxLayout(selectorPanel, BoxLayout.Y_AXIS));
-        TrainCheckBox = new JCheckBox("Trains");
-        TrackCheckBox = new JCheckBox("Tracks");
-        CarriagesCheckBox = new JCheckBox("Carriages");
-        BundlesCheckBox = new JCheckBox("Bundles");
-        selectorPanel.add(TrainCheckBox);
-        selectorPanel.add(TrackCheckBox);
-        selectorPanel.add(CarriagesCheckBox);
-        selectorPanel.add(BundlesCheckBox);
+        for (String category : categories) {
+            JButton button = new JButton(category);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Filter the table by the category
+                    fetchProducts(category);
+                }
+            });
+            selectorPanel.add(button);
+        }
 
         frame.add(selectorPanel, BorderLayout.WEST);
 
@@ -112,4 +138,106 @@ public class BetterCustomerPage {
             }
         });
     }
+
+    private void fetchProducts(String filter) {
+        // Clear the existing data in the table model.
+        tableModel.setRowCount(0);
+
+        // Establish a connection and prepare a query.
+        Connection connection = null;
+        try {
+            connection = DatabaseConnectionHandler.getConnection();
+
+            // Start building the query
+            String query = "SELECT ProductName, BrandName, Price, ProductID FROM Products";
+            if (filter != null) {
+                if (filter == "All"){
+                    query = "SELECT ProductName, BrandName, Price, ProductID FROM Products";
+                }
+                if (filter == "Tracks") {
+                    query += " WHERE ProductCode LIKE 'R%'";
+                }
+                if (filter == "Controllers") {
+                    query += " WHERE ProductCode LIKE 'C%'";
+                }
+                if (filter == "LocoMotives") {
+                    query += " WHERE ProductCode LIKE 'L%'";
+                }
+                if (filter == "Rolling Stocks") {
+                    query += " WHERE ProductCode LIKE 'S%'";
+                }
+                if (filter == "Train Sets") {
+                    query += " WHERE ProductCode LIKE 'M%'";
+                }
+                if (filter == "Track Packs") {
+                    query += " WHERE ProductCode LIKE 'P%'";
+                }
+            }
+
+            PreparedStatement statement = connection.prepareStatement(query);
+
+
+            // Execute the query and process the results
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String ProductName = resultSet.getString("ProductName");
+                String BrandName = resultSet.getString("BrandName");
+                String Price = resultSet.getString("Price");
+                int ProductID = resultSet.getInt("ProductID");
+
+
+                // Add a row to the table model for each product
+                tableModel.addRow(new Object[]{BrandName,ProductName, Price, ProductID});
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close the connection
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    private void AddToCart(int UserID){
+        Connection connection = null;
+        int selectedRow = userTable.getSelectedRow();
+        try{
+            connection = DatabaseConnectionHandler.getConnection();
+
+            String IDquery = "SELECT MAX(OrderID) FROM Orders";
+                PreparedStatement IDStatement = connection.prepareStatement(IDquery);
+                ResultSet OrderID = IDStatement.executeQuery();
+                OrderID.next();
+                int UserVal = OrderID.getInt(1);
+                UserVal = UserVal + 1;
+
+            int ProductID = (int) tableModel.getValueAt(selectedRow, 3);
+
+            String query = "INSERT  into Orders values (?,?,?,?)";
+            PreparedStatement preparedStatement2 = connection.prepareStatement(query);
+            preparedStatement2.setInt(1, UserVal);
+            preparedStatement2.setString(2, "Confirmed");
+            preparedStatement2.setInt(3, ProductID);
+            preparedStatement2.setInt(4, UserID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close the connection
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+
 }
