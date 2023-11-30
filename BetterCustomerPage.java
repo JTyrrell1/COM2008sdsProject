@@ -34,7 +34,9 @@ public class BetterCustomerPage {
 
         OrdersButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // insert link to orders page
+                CustomerOrders NeoSpace = new CustomerOrders(userID);
+                NeoSpace.main(userID);
+                frame.dispose();
             }
         });
 
