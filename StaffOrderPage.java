@@ -67,14 +67,7 @@ public class StaffOrderPage {
                 int selectedRow = orderTable.getSelectedRow();
                 if (selectedRow != -1) {
                     String OrderID = (String) tableModel.getValueAt(selectedRow, 0);
-                    String OrderStatus = (String) tableModel.getValueAt(selectedRow, 1);
-                    System.out.println(OrderStatus);
-                    if (OrderStatus.equals("Fulfilled")) {
-                        JOptionPane.showMessageDialog(frame, "Cannot delete already fulfilled order.");
-                    }
-                    else {
-                        deleteOrder(Integer.valueOf(OrderID));
-                    }
+                    deleteOrder(Integer.valueOf(OrderID));
                     fetchOrders(past); // Refresh the table.
                 }
             }

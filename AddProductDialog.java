@@ -7,8 +7,8 @@ public class AddProductDialog extends JDialog {
     private JTextField productIDField, productNameField, brandNameField, productCodeField, priceField, gaugeField, eraField, dccCodeField, quantityField;
     private JButton addButton;
 
-    public AddProductDialog(Frame owner,Integer ProductID) {
-        super(owner, "Add Product", true);
+    public AddProductDialog(Frame owner,Integer ProductID, String title) {
+        super(owner, title, true);
 
         Integer ID = null;
         String BrandName = null;
@@ -144,7 +144,7 @@ public class AddProductDialog extends JDialog {
         add(quantityField);
 
         // Add button
-        addButton = new JButton("Add Product");
+        addButton = new JButton(title);
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addProductToDatabase(ProductID);

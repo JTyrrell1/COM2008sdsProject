@@ -10,10 +10,12 @@ public class StaffPage extends JFrame {
     private DefaultTableModel tableModel;
     private JTable table;
     private JPanel buttonPanel;
-    private String[] categories = {"Tracks", "Controllers", "LocoMotives", "Rolling Stocks", "Train Sets", "Track Packs"}; // Your category identifiers
+    private String[] categories = {"Tracks", "Controllers", "LocoMotives", "Rolling Stocks", "Train Sets", "Track Packs","All"}; // Your category identifiers
     private JButton addButton;
     private JButton deleteButton;
     private JButton editButton;
+
+    private String title;
 
     public StaffPage() {
         // Set up the frame
@@ -50,10 +52,11 @@ public class StaffPage extends JFrame {
         addButton = new JButton("Add Product");
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AddProductDialog addDialog = new AddProductDialog(StaffPage.this,null);
+                title = "Add Product";
+                AddProductDialog addDialog = new AddProductDialog(StaffPage.this,null,title);
                 addDialog.setVisible(true);
                 // After the dialog is disposed, you might want to refresh the product list
-                fetchProducts(null); // Or however you retrieve and display the products
+                fetchProducts("All"); // Or however you retrieve and display the products
             }
         });
 
@@ -65,7 +68,7 @@ public class StaffPage extends JFrame {
                 if (selectedRow != -1) {
                     String ProductID = (String) tableModel.getValueAt(selectedRow, 0);
                     deleteProduct(Integer.valueOf(ProductID));
-                    fetchProducts(null); // Refresh the table.
+                    fetchProducts("All"); // Refresh the table.
                 }
             }
         });
@@ -77,9 +80,10 @@ public class StaffPage extends JFrame {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
                     String ProductID = (String) tableModel.getValueAt(selectedRow, 0);
-                    AddProductDialog addDialog = new AddProductDialog(StaffPage.this, Integer.valueOf(ProductID));
+                    title = "Edit Product";
+                    AddProductDialog addDialog = new AddProductDialog(StaffPage.this, Integer.valueOf(ProductID),title);
                     addDialog.setVisible(true);
-                    fetchProducts(null); // Refresh the table.
+                    fetchProducts("All"); // Refresh the table.
                 }
             }
         });
@@ -97,7 +101,7 @@ public class StaffPage extends JFrame {
         add(new JScrollPane(table), BorderLayout.CENTER);
 
         // Fetch all products initially
-        fetchProducts(null);
+        fetchProducts("All");
 
         // Display the frame
         setVisible(true);
@@ -106,7 +110,6 @@ public class StaffPage extends JFrame {
     private void fetchProducts(String filter) {
         // Clear the existing data in the table model.
         tableModel.setRowCount(0);
-
         // Establish a connection and prepare a query.
         Connection connection = null;
         try {
@@ -114,7 +117,7 @@ public class StaffPage extends JFrame {
 
             // Start building the query
             String query = "SELECT ProductID, ProductName, BrandName,ProductCode, Price, Gauge, Era, DccCode, Quantity FROM Products";
-            if (filter != null) {
+            if (filter != "All") {
                 if (filter == "Tracks") {
                     query += " WHERE ProductCode LIKE 'R%'";
                 }
@@ -179,9 +182,17 @@ public class StaffPage extends JFrame {
 
             String checkQuery = "DELETE FROM Products WHERE ProductID = ?";
             PreparedStatement checkStmt = connection.prepareStatement(checkQuery);
-            checkStmt.setString(1, String.valueOf(ProductID));
-            checkStmt.execute();
-  //          ResultSet resultSet = checkStmt.executeQuery();
+            checkStmt.setInt(1, ProductID);
+            int rowsAffected = checkStmt.executeUpdate();
+            if (rowsAffected > 0) {
+                // Commit the transaction if the deletion was successful
+                connection.commit();
+                JOptionPane.showMessageDialog(this, "Product deleted successfully.");
+            } else {
+                // Rollback if no rows were affected
+                connection.rollback();
+                JOptionPane.showMessageDialog(this, "Product not found.");
+            }
         }
         catch (SQLException sqle) {
             JOptionPane.showMessageDialog(this, "Database error: " + sqle.getMessage());
