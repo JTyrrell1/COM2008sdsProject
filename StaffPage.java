@@ -50,7 +50,7 @@ public class StaffPage extends JFrame {
         addButton = new JButton("Add Product");
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AddProductDialog addDialog = new AddProductDialog(StaffPage.this,1);
+                AddProductDialog addDialog = new AddProductDialog(StaffPage.this,null);
                 addDialog.setVisible(true);
                 // After the dialog is disposed, you might want to refresh the product list
                 fetchProducts(null); // Or however you retrieve and display the products
@@ -64,7 +64,6 @@ public class StaffPage extends JFrame {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
                     String ProductID = (String) tableModel.getValueAt(selectedRow, 0);
-                    System.out.println(ProductID);
                     deleteProduct(Integer.valueOf(ProductID));
                     fetchProducts(null); // Refresh the table.
                 }
@@ -73,6 +72,17 @@ public class StaffPage extends JFrame {
 
 
         editButton = new JButton("Edit Product");
+        editButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    String ProductID = (String) tableModel.getValueAt(selectedRow, 0);
+                    AddProductDialog addDialog = new AddProductDialog(StaffPage.this, Integer.valueOf(ProductID));
+                    addDialog.setVisible(true);
+                    fetchProducts(null); // Refresh the table.
+                }
+            }
+        });
 
 
         JPanel buttonPanel2 = new JPanel();

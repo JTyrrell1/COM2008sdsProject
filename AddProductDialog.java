@@ -61,13 +61,15 @@ public class AddProductDialog extends JDialog {
 
         // Form fields
         add(new JLabel("Product ID:"));
-        if (ProductID != null) {
-            productIDField = new JTextField(String.valueOf(ID));
+        if (ProductID == null) {
+            add(new JLabel());
+            productIDField = new JTextField();
+            add(productIDField);
         }
         else{
-            productIDField = new JTextField();
+            add(new JLabel(String.valueOf(ID)));
         }
-        add(productIDField);
+
 
         add(new JLabel("Brand Name:"));
         if (ProductID != null) {
@@ -145,28 +147,37 @@ public class AddProductDialog extends JDialog {
         addButton = new JButton("Add Product");
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addProductToDatabase();
+                addProductToDatabase(ProductID);
             }
         });
         add(addButton);
 
-        setSize(400, 300);
+        setSize(350, 300);
     }
 
-    private void addProductToDatabase() {
+    private void addProductToDatabase( Integer id) {
         try {
             // Database insertion
             Connection conn = null;
             try {
                 conn = DatabaseConnectionHandler.getConnection();
-                String sql = "INSERT INTO Products (ProductID, ProductName, BrandName, ProductCode, Price, Gauge, Era, DccCode, Quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement preparedStatement = conn.prepareStatement(sql);
-                if (productIDField.getText().trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Product ID cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
-                    return;
+                PreparedStatement preparedStatement = null;
+                if (id != null) {
+                    String sql = "UPDATE Products SET ProductID = ?, ProductName = ?, BrandName = ?, ProductCode = ?, Price = ?, Gauge = ?, Era = ?, DccCode = ?, quantity = ? WHERE ProductID = ?";
+                    preparedStatement = conn.prepareStatement(sql);
+                    preparedStatement.setInt(10, id);
+                    preparedStatement.setInt(1, id);
                 }
-                int ProductID = Integer.parseInt(productIDField.getText().trim());
-                preparedStatement.setInt(1, ProductID);
+                else {
+                    String sql = "INSERT INTO Products (ProductID, ProductName, BrandName, ProductCode, Price, Gauge, Era, DccCode, Quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    preparedStatement = conn.prepareStatement(sql);
+                    if (productIDField.getText().trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Product ID cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    int ProductID = Integer.parseInt(productIDField.getText().trim());
+                    preparedStatement.setInt(1, ProductID);
+                }
 
                 if (productNameField.getText().trim().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Product Name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
