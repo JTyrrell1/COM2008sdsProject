@@ -41,8 +41,9 @@ public class StaffPage extends JFrame {
 
         String UserRank = GetUserType(UserID);
         // Showing manager window if user is a manager
-        if (UserRank.equals("Manager")){
-            ManagerButton = new JButton("Staff");
+        ManagerButton = new JButton("Manager");
+        System.out.println(UserRank);
+        if (UserRank == "Manager"){
 
             ManagerButton.addActionListener(new ActionListener() {
                 @Override
@@ -51,7 +52,6 @@ public class StaffPage extends JFrame {
                     ReinoHeart.main(UserID);
                 }
             });
-            ButtonPane2.add(ManagerButton);
         }
 
         OrderButton = new JButton("Orders");
@@ -64,8 +64,7 @@ public class StaffPage extends JFrame {
             }
         });
 
-        ButtonPane2.add(OrderButton);
-        add(ButtonPane2, BorderLayout.NORTH);
+
 
 
         // Button panel setup
@@ -126,6 +125,8 @@ public class StaffPage extends JFrame {
         buttonPanel2.add(addButton);
         buttonPanel2.add(deleteButton);
         buttonPanel2.add(editButton);
+        buttonPanel2.add(OrderButton);
+        buttonPanel2.add(ManagerButton);
 
         add(buttonPanel2, BorderLayout.SOUTH);
 
