@@ -96,6 +96,7 @@ public class BetterCustomerPage {
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(OrdersButton);
         buttonPanel.add(LogOutButton);
+        buttonPanel.add(StaffButton);
         frame.add(buttonPanel, BorderLayout.NORTH);
 
         JPanel selectorPanel = new JPanel();
