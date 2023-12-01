@@ -35,7 +35,7 @@ public class BetterCustomerPage {
 
         //Checks what type of user the logged in user is and then if they have high enough permissions it shows the user the button to take them to the staff area.
         String UserRank = GetUserType(userID);
-        if (!(UserRank == null) && ((UserRank.equals("Staff"))  || (UserRank.equals("Manager")))){
+        if ((UserRank != null) && ((UserRank.equals("Staff"))  || (UserRank.equals("Manager")))){
             StaffButton = new JButton("Staff");
 
             StaffButton.addActionListener(new ActionListener() {
@@ -104,9 +104,7 @@ public class BetterCustomerPage {
         buttonPanel.add(DetailsButton);
         buttonPanel.add(OrdersButton);
         buttonPanel.add(LogOutButton);
-        if (UserRank != null && (UserRank.equals("Staff") || UserRank.equals("Manager"))) {
-            buttonPanel.add(StaffButton);
-        }
+        buttonPanel.add(StaffButton);
         frame.add(buttonPanel, BorderLayout.NORTH);
 
         JPanel selectorPanel = new JPanel();
