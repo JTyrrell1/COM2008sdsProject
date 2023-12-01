@@ -256,10 +256,15 @@ public class StaffPage extends JFrame {
 
             String UserTypeQuery = "SELECT UserType From Users WHERE UserID = ?";
             PreparedStatement preparedStatement3 = connection.prepareStatement(UserTypeQuery);
-            preparedStatement3.setInt(1,UserID);
+            preparedStatement3.setInt(1, UserID);
             ResultSet UType = preparedStatement3.executeQuery();
-            String TypeString = UType.getString(1);
-            return TypeString;
+
+            if (UType.next()) {
+                System.out.println(UType.getString(1));
+                return UType.getString(1);
+            } else {
+                return "Customer";
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
