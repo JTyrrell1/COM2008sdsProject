@@ -56,9 +56,9 @@ public class LoginPage extends JDialog {
     private void onOK() {
         String email = textField1.getText();
         char[] password = passwordField1.getPassword();
-        if ((email != "") && (new String(password) != "") && (email.contains(" ") == false) && (new String(password).contains(" ") == false)) {
+        if ((!email.isEmpty()) && !(new String(password).isEmpty()) && !(email.contains(" ")) && !(new String(password).contains(" "))) {
             authenticateUser(email, new String(password));
-        } else if ((email.contains(" ") == false) && (new String(password).contains(" ") == false)) {
+        } else if ((!email.contains(" ")) && (!new String(password).contains(" "))) {
             JOptionPane.showMessageDialog(frame, "Email or Password has been left blank.");
         } else {
             JOptionPane.showMessageDialog(frame, "Email or Password contains invalid characters.");
@@ -73,7 +73,13 @@ public class LoginPage extends JDialog {
     private void onSignUp() {
         String email = textField1.getText();
         char[] password = passwordField1.getPassword();
-        UserSignUp(email, new String(password));
+        if ((!email.isEmpty()) && !(new String(password).isEmpty()) && !(email.contains(" ")) && !(new String(password).contains(" "))) {
+            UserSignUp(email, new String(password));
+        } else if ((!email.contains(" ")) && (!new String(password).contains(" "))) {
+            JOptionPane.showMessageDialog(frame, "Email or Password has been left blank.");
+        } else {
+            JOptionPane.showMessageDialog(frame, "Email or Password contains invalid characters.");
+        }
         dispose();
     }
 
