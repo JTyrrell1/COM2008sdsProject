@@ -41,15 +41,16 @@ public class StaffPage extends JFrame {
         if (UserRank == "Manager"){
             ManagerButton = new JButton("Staff");
 
+            ManagerButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ManagerPage ReinoHeart = new ManagerPage(UserID);
+                    ReinoHeart.main(UserID);
+                }
+            });
+
         }
 
-        ManagerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ManagerPage ReinoHeart = new ManagerPage(UserID);
-                ReinoHeart.main(UserID);
-            }
-        });
 
         // Button panel setup
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));

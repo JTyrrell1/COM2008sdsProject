@@ -37,15 +37,14 @@ public class BetterCustomerPage {
         if ((UserRank == "Staff")  || (UserRank == "Manager")){
             StaffButton = new JButton("Staff");
 
+            StaffButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    StaffPage RiumHeart = new StaffPage(userID);
+                    RiumHeart.main(userID);
+                }
+            });
         }
-
-        StaffButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                StaffPage RiumHeart = new StaffPage(userID);
-                RiumHeart.main(userID);
-            }
-        });
 
 
         OrdersButton = new JButton("Orders");
@@ -96,7 +95,9 @@ public class BetterCustomerPage {
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(OrdersButton);
         buttonPanel.add(LogOutButton);
-        buttonPanel.add(StaffButton);
+        if (UserRank == "Staff") {
+            buttonPanel.add(StaffButton);
+        }
         frame.add(buttonPanel, BorderLayout.NORTH);
 
         JPanel selectorPanel = new JPanel();

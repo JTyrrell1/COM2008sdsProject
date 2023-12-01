@@ -118,11 +118,6 @@ public class LoginPage extends JDialog {
                 //comparing stored password and inputted password
                 String storedPassword = resultSet.getString(3);
 
-                //testing
-                System.out.println(storedPassword);
-                System.out.println(hashedInputPassword);
-                System.out.println(salt);
-
                 if (storedPassword.equals(hashedInputPassword)) {
 
                     JOptionPane.showMessageDialog(frame, "Login successful!");
