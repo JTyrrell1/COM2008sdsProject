@@ -1,7 +1,3 @@
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,22 +6,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 public class UserDetails extends JDialog {
-    private JFrame frame;
-    private JButton returnButton;
-    private int userID;
+    private final JFrame frame;
     private Address userAddress;
     private BankAccount userBankAccount;
 
     public UserDetails(int ID) {
-        this.userID = ID;
         frame = new JFrame("User Details");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        returnButton = new JButton("Main Menu");
+        JButton returnButton = new JButton("Main Menu");
 
         returnButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -34,7 +26,18 @@ public class UserDetails extends JDialog {
             }
         });
 
+
+        JButton editButton = new JButton("Edit Details");
+
+        editButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new EditDetails(ID);
+                frame.dispose();
+            }
+        });
+
         JPanel returnPanel = new JPanel();
+        returnPanel.add(editButton);
         returnPanel.add(returnButton);
         frame.add(returnPanel, BorderLayout.SOUTH);
 
@@ -50,9 +53,9 @@ public class UserDetails extends JDialog {
         frame.add(headerPanel, BorderLayout.NORTH);
 
 
-        setDetails(ID);
+        SetDetails(ID);
 
-        JTextField addressTextField = new JTextField();
+        JTextArea addressTextField = new JTextArea();
         addressTextField.setEditable(false);
         if (userAddress != null) {
             addressTextField.setText(userAddress.toString());
@@ -60,12 +63,12 @@ public class UserDetails extends JDialog {
             addressTextField.setText("No address found.");
         }
 
-        JTextField bankTextField = new JTextField();
+        JTextArea bankTextField = new JTextArea();
         bankTextField.setEditable(false);
         if (userBankAccount != null) {
             bankTextField.setText(userBankAccount.toString());
         } else {
-            bankTextField.setText("No bank account found.");
+            bankTextField.setText("No bank account found. BROKE!");
         }
 
         JPanel detailsPanel = new JPanel();
@@ -81,14 +84,14 @@ public class UserDetails extends JDialog {
     }
 
 
-    private void setDetails(int UserID) {
+    private void SetDetails(int userID) {
         Connection connection = null;
         try {
             connection = DatabaseConnectionHandler.getConnection();
 
             String queryIndexes = "SELECT * FROM Users WHERE userid = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(queryIndexes);
-            preparedStatement.setInt(1, UserID);
+            preparedStatement.setInt(1, userID);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -161,9 +164,5 @@ public class UserDetails extends JDialog {
             DatabaseConnectionHandler.closeConnection(connection);
         }
         return null;
-    }
-
-    public static void main(int userID) {
-        UserDetails dialog = new UserDetails(userID);
     }
 }

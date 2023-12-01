@@ -17,7 +17,7 @@ public class ShoppingSystem {
             public void run() {
 
                 final LoginPage window = new LoginPage();
-                window.main();
+                window.startUp();
 
 
             }
