@@ -14,7 +14,7 @@ public class ManagerPage {
 
     private JButton returnStaffPage;
 
-    public ManagerPage() {
+    public ManagerPage(int UserID) {
         // Create and set up the window.
         frame = new JFrame("Manager Dashboard");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -175,10 +175,10 @@ public class ManagerPage {
     }
 
     // Main method to start the application.
-    public static void main(String[] args) {
+    public static void main(int UserID) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new ManagerPage();
+                new ManagerPage(UserID);
             }
         });
     }

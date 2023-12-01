@@ -14,10 +14,11 @@ public class StaffPage extends JFrame {
     private JButton addButton;
     private JButton deleteButton;
     private JButton editButton;
+    private JButton ManagerButton;
 
     private String title;
 
-    public StaffPage() {
+    public StaffPage(int UserID) {
         // Set up the frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
@@ -35,6 +36,20 @@ public class StaffPage extends JFrame {
         tableModel.addColumn("Era");
         tableModel.addColumn("DCC Code");
         tableModel.addColumn("Quantity");
+
+        String UserRank = GetUserType(UserID);
+        if (UserRank == "Manager"){
+            ManagerButton = new JButton("Staff");
+
+        }
+
+        ManagerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ManagerPage ReinoHeart = new ManagerPage(UserID);
+                ReinoHeart.main(UserID);
+            }
+        });
 
         // Button panel setup
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -207,11 +222,40 @@ public class StaffPage extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(int UserID) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new StaffPage();
+                new StaffPage(UserID);
             }
         });
+    }
+
+    private String GetUserType(int UserID){
+        Connection connection = null;
+        try{
+            connection = DatabaseConnectionHandler.getConnection();
+
+            String UserTypeQuery = "SELECT UserType From Users WHERE UserID = ?";
+            PreparedStatement preparedStatement3 = connection.prepareStatement(UserTypeQuery);
+            preparedStatement3.setInt(1,UserID);
+            ResultSet UType = preparedStatement3.executeQuery();
+            String TypeString = UType.getString(1);
+            return TypeString;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            // Close the connection
+            if (connection != null) {
+                try {
+                    connection.close();
+                    return null;
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }
     }
 }
