@@ -33,6 +33,7 @@ public class BetterCustomerPage {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
+        //Checks what type of user the logged in user is and then if they have high enough permissions it shows the user the button to take them to the staff area.
         String UserRank = GetUserType(userID);
         if (!(UserRank == null) && ((UserRank.equals("Staff"))  || (UserRank.equals("Manager")))){
             StaffButton = new JButton("Staff");
@@ -131,6 +132,7 @@ public class BetterCustomerPage {
         frame.setVisible(true);
     }
 
+    //Pulls all the products from the database and uses them to poulate the table show on the page.
     private void PullProducts() {
         Connection connection = null;
         try {
@@ -167,6 +169,7 @@ public class BetterCustomerPage {
         });
     }
 
+    //Filters the products in the database according to the selected filter and then puts them in the table on the screen.
     private void fetchProducts(String filter) {
         // Clear the existing data in the table model.
         tableModel.setRowCount(0);
@@ -231,6 +234,7 @@ public class BetterCustomerPage {
         }
     }
     
+    //Lets the customer click on a product and then on the order button to order a product
     private void AddToCart(int UserID){
         Connection connection = null;
         int selectedRow = userTable.getSelectedRow();
@@ -267,6 +271,7 @@ public class BetterCustomerPage {
 
     }
 
+    //Gets the type of the currently logged in user
     private String GetUserType(int UserID){
         Connection connection = null;
         try{
