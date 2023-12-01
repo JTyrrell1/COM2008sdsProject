@@ -150,9 +150,9 @@ public class UserDetails extends JDialog {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                int accountNumber = resultSet.getInt(2);
-                int civ = resultSet.getInt(3);
-                int expiryDate = resultSet.getInt(4);
+                String accountNumber = resultSet.getString(2);
+                String civ = resultSet.getString(3);
+                String expiryDate = resultSet.getString(4);
                 String firstName = resultSet.getString(5);
                 String lastName = resultSet.getString(6);
 

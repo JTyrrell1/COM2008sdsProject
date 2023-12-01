@@ -282,7 +282,6 @@ public class BetterCustomerPage {
             ResultSet UType = preparedStatement3.executeQuery();
 
             if (UType.next()) {
-                System.out.println(UType.getString(1));
                 return UType.getString(1);
             } else {
                 return "Customer";

@@ -11,6 +11,7 @@ public class EditDetails extends JDialog {
     private final JFrame frame;
     private Address userAddress;
     private BankAccount userBankAccount;
+    private int UserID;
 
     public EditDetails(int ID) {
         frame = new JFrame("Edit User Details");
@@ -90,7 +91,7 @@ public class EditDetails extends JDialog {
 
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                SubmitDetails(houseNumber.getText(), roadName.getText(), cityName.getText(), postCode.getText(),
+                SubmitDetails(ID, houseNumber.getText(), roadName.getText(), cityName.getText(), postCode.getText(),
                         accountNumber.getText(), securityNumber.getText(), expiryDate.getText(), firstName.getText(),
                         lastName.getText());
             }
@@ -102,7 +103,7 @@ public class EditDetails extends JDialog {
         frame.setVisible(true);
     }
 
-    private void SubmitDetails(String houseNumber, String roadName, String cityName, String postCode,
+    private void SubmitDetails(int UserID, String houseNumber, String roadName, String cityName, String postCode,
                                String accountNumber, String securityCode, String expiryDate, String firstName,
                                String lastName) {
         Connection connection = null;
@@ -110,28 +111,59 @@ public class EditDetails extends JDialog {
         try {
             connection = DatabaseConnectionHandler.getConnection();
 
-            String queryIndex = "SELECT  FROM Users WHERE userid = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(queryIndex);
-            preparedStatement.setInt(1, UserID);
+            String queryIndex = "SELECT AddressID FROM Users WHERE userid = ?";
+            PreparedStatement preparedStatement3 = connection.prepareStatement(queryIndex);
+            preparedStatement3.setInt(1, UserID);
 
-            String queryAddress = "UPDATE Address SET HouseNumber = ?, RoadName = ?, CityName = ?, PostCode = ?;";
-            PreparedStatement preparedStatement = connection.prepareStatement(queryAddress);
-            preparedStatement.setString(1, houseNumber);
-            preparedStatement.setString(2, roadName);
-            preparedStatement.setString(3, cityName);
-            preparedStatement.setString(4, postCode);
-            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement3.executeQuery();
 
-            String queryBank = "UPDATE Banking SET AccountNumber = ?, Civ = ?, ExpiryDate = ?, FirstName = ?," +
-                    "LastName = ?;";
-            PreparedStatement preparedStatement2 = connection.prepareStatement(queryBank);
-            preparedStatement2.setString(1, accountNumber);
-            preparedStatement2.setString(2, securityCode);
-            preparedStatement2.setString(3, expiryDate);
-            preparedStatement2.setString(4, firstName);
-            preparedStatement2.setString(5, lastName);
-            preparedStatement2.executeUpdate();
-            JOptionPane.showMessageDialog(frame, "Details Updated");
+            if (resultSet.next()) {
+
+                String queryAddress = "UPDATE Address SET HouseNumber = ?, RoadName = ?, CityName = ?, PostCode = ? " +
+                        "WHERE AddressID = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(queryAddress);
+                preparedStatement.setString(1, houseNumber);
+                preparedStatement.setString(2, roadName);
+                preparedStatement.setString(3, cityName);
+                preparedStatement.setString(4, postCode);
+                preparedStatement.setInt(5, resultSet.getInt(1));
+                preparedStatement.executeUpdate();
+
+            } else {
+                String addressIDQuery = "SELECT MAX(AddressID) FROM Address";
+                PreparedStatement addressIDStatement = connection.prepareStatement(addressIDQuery);
+                ResultSet addressID = addressIDStatement.executeQuery();
+                addressID.next();
+                int UserVal = addressID.getInt(1);
+                UserVal = UserVal + 1;
+
+                String query3 = "UPDATE Users SET AddressID = ?;";
+                PreparedStatement preparedStatement4 = connection.prepareStatement(query3);
+                preparedStatement4.setInt(1, UserVal);
+                preparedStatement4.executeUpdate();
+
+                String query2 = "INSERT INTO Address (HouseNumber, RoadName, CityName, PostCode) VALUES(?, ?, ?, ?)";
+                PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
+                preparedStatement2.setString(1, houseNumber);
+                preparedStatement2.setString(2, roadName);
+                preparedStatement2.setString(3, cityName);
+                preparedStatement2.setString(4, postCode);
+                preparedStatement2.executeUpdate();
+                JOptionPane.showMessageDialog(frame, "New address added.");
+            }
+
+
+                String queryBank = "UPDATE Banking SET AccountNumber = ?, Civ = ?, ExpiryDate = ?, FirstName = ?," +
+                        "LastName = ?;";
+                PreparedStatement preparedStatement2 = connection.prepareStatement(queryBank);
+                preparedStatement2.setString(1, accountNumber);
+                preparedStatement2.setString(2, securityCode);
+                preparedStatement2.setString(3, expiryDate);
+                preparedStatement2.setString(4, firstName);
+                preparedStatement2.setString(5, lastName);
+                preparedStatement2.executeUpdate();
+                JOptionPane.showMessageDialog(frame, "Details Updated");
+
 
 
         } catch (SQLException sqle) {

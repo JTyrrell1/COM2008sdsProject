@@ -2,9 +2,9 @@ import java.util.Date;
 
 public class BankAccount {
 
-    private int accountNumber;
-    private int civ;
-    private int expiryDate;
+    private String accountNumber;
+    private String civ;
+    private String expiryDate;
     private String firstName;
     private String lastName;
     
@@ -15,7 +15,7 @@ public class BankAccount {
      * @param firstName
      * @param lastName
      */
-    public BankAccount(int accountNumber, int civ, int expiryDate, String firstName, String lastName) {
+    public BankAccount(String accountNumber, String civ, String expiryDate, String firstName, String lastName) {
         this.accountNumber = accountNumber;
         this.civ = civ;
         this.expiryDate = expiryDate;

@@ -14,7 +14,7 @@ CREATE TABLE Products (
 
 CREATE TABLE Address (
    AddressID INT PRIMARY KEY UNIQUE,
-   HouseNumber INT,
+   HouseNumber VARCHAR(45),
    RoadName VARCHAR(45),
    CityName VARCHAR(45),
    PostCode VARCHAR(45)
