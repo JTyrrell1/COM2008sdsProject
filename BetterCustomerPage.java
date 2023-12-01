@@ -43,6 +43,7 @@ public class BetterCustomerPage {
                 public void actionPerformed(ActionEvent e) {
                     StaffPage RiumHeart = new StaffPage(userID);
                     RiumHeart.main(userID);
+                    frame.dispose();
                 }
             });
         }
@@ -94,7 +95,7 @@ public class BetterCustomerPage {
         frame.add(AddPanel, BorderLayout.SOUTH);
 
         // Set up the table model.
-        tableModel = new DefaultTableModel(new Object[]{"BrandName", "ProductName", "Price"}, 0);
+        tableModel = new DefaultTableModel(new Object[]{"BrandName", "ProductName", "Price", "ProductID"}, 0);
 
         // Create the table with the model.
         userTable = new JTable(tableModel);
@@ -138,7 +139,7 @@ public class BetterCustomerPage {
         Connection connection = null;
         try {
             connection = DatabaseConnectionHandler.getConnection();
-            String query = "SELECT BrandName,ProductName,Price FROM Products";
+            String query = "SELECT BrandName,ProductName,Price,ProductID FROM Products";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
             tableModel.setRowCount(0);
@@ -146,7 +147,8 @@ public class BetterCustomerPage {
                 String BrandName = resultSet.getString("BrandName");
                 String ProductName = resultSet.getString("ProductName");
                 String Price = resultSet.getString("Price");
-                tableModel.addRow(new Object[]{BrandName, ProductName, Price});
+                String ProductID = resultSet.getString("ProductID");
+                tableModel.addRow(new Object[]{BrandName, ProductName, Price, ProductID});
             }
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());
@@ -246,8 +248,7 @@ public class BetterCustomerPage {
                 int UserVal = OrderID.getInt(1);
                 UserVal = UserVal + 1;
 
-            int ProductID = (int) tableModel.getValueAt(selectedRow, 3);
-
+            int ProductID = Integer.parseInt(tableModel.getValueAt(selectedRow, 3).toString());
             String query = "INSERT  into Orders values (?,?,?,?)";
             PreparedStatement preparedStatement2 = connection.prepareStatement(query);
             preparedStatement2.setInt(1, UserVal);

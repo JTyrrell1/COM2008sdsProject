@@ -126,6 +126,7 @@ public class LoginPage extends JDialog {
 
                     BetterCustomerPage maingui = new BetterCustomerPage(userID);
                     maingui.main(userID);
+                    dispose();
 
                 } else {
                     JOptionPane.showMessageDialog(frame, "Invalid password");
@@ -192,6 +193,7 @@ public class LoginPage extends JDialog {
                 preparedStatement2.executeUpdate();
                 JOptionPane.showMessageDialog(frame, "Account created");
                 main();
+                dispose();
             }
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());
