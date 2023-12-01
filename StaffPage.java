@@ -15,6 +15,7 @@ public class StaffPage extends JFrame {
     private JButton deleteButton;
     private JButton editButton;
     private JButton ManagerButton;
+    private JButton OrderButton;
 
     private String title;
 
@@ -23,6 +24,7 @@ public class StaffPage extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
         setTitle("Product Management");
+        JPanel ButtonPane2 = new JPanel();
 
         // Table setup
         tableModel = new DefaultTableModel();
@@ -48,8 +50,21 @@ public class StaffPage extends JFrame {
                     ReinoHeart.main(UserID);
                 }
             });
-
+            ButtonPane2.add(ManagerButton);
         }
+
+        OrderButton = new JButton("Orders");
+
+        OrderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StaffOrderPage Visas = new StaffOrderPage();
+                Visas.main();
+            }
+        });
+
+        ButtonPane2.add(OrderButton);
+        add(ButtonPane2, BorderLayout.NORTH);
 
 
         // Button panel setup
