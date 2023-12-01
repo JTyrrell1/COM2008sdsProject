@@ -10,7 +10,7 @@ public class StaffPage extends JFrame {
     private DefaultTableModel tableModel;
     private JTable table;
     private JPanel buttonPanel;
-    private String[] categories = {"Tracks", "Controllers", "LocoMotives", "Rolling Stocks", "Train Sets", "Track Packs","All"}; // Your category identifiers
+    private String[] categories = {"Tracks", "Controllers", "LocoMotives", "Rolling Stocks", "Train Sets", "Track Packs","All"};
     private JButton addButton;
     private JButton deleteButton;
     private JButton editButton;

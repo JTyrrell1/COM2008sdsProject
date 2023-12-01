@@ -165,7 +165,7 @@ public class ManagerPage {
         }
     }
 
-    // Main method to start the application.
+
     public static void main(int UserID) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {

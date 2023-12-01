@@ -266,7 +266,6 @@ public class AddProductDialog extends JDialog {
                 int rowsAffected = preparedStatement.executeUpdate();
                 if (rowsAffected > 0) {
                     JOptionPane.showMessageDialog(this, "Product added successfully.");
-                    // Update JTable in StaffUI here...
                     dispose(); // Close the dialog
                 } else {
                     JOptionPane.showMessageDialog(this, "No rows added. Please check your input values.");
