@@ -53,6 +53,7 @@ public class LoginPage extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
+    //Code that runs to validate the users inputs in the email and password for the purpose of logging in.
     private void onOK() {
         String email = textField1.getText();
         char[] password = passwordField1.getPassword();
@@ -72,6 +73,7 @@ public class LoginPage extends JDialog {
         dispose();
     }
 
+    //Code that runs to validate the users inputs in the email and password for the purpose of Signing up.
     private void onSignUp() {
         String email = textField1.getText();
         char[] password = passwordField1.getPassword();
@@ -93,13 +95,11 @@ public class LoginPage extends JDialog {
         dialog.setVisible(true);
     }
 
+    // Checks the given email and password against a hash of that in the database so users can sign in securely
     private void authenticateUser(String email, char[] inputPassword) {
         Connection connection = null;
         try {
             connection = DatabaseConnectionHandler.getConnection();
-            //String queery = "USE team071";
-            //PreparedStatement setupStatement = connection.prepareStatement(queery);
-            //setupStatement.executeQuery();
 
             String query = "SELECT * FROM Users WHERE email = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -150,6 +150,8 @@ public class LoginPage extends JDialog {
         }
     }
 
+
+    //First checks if the given email is already in the database and if not creates an account with the given email and password once again hashing it for security 
     private void UserSignUp(String email, char[] password) {
         Connection connection = null;
         try {
