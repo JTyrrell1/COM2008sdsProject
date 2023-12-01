@@ -28,7 +28,7 @@ public class CustomerOrders extends JDialog{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        tableModel = new DefaultTableModel(new Object[]{"OrderID", "OrderStatus", "ProductID", "FullName", "HouseNumber", "RoadName", "CityName", "PostCode", "Stock"}, 0);
+        tableModel = new DefaultTableModel(new Object[]{"OrderID", "OrderStatus", "ProductID"}, 0);
 
         ReturnButton = new JButton("Main Menu");
 
@@ -64,13 +64,7 @@ public class CustomerOrders extends JDialog{
                 String OrderID = resultSet.getString("OrderID");
                 String OrderStatus = resultSet.getString("OrderStatus");
                 String ProductID = resultSet.getString("ProductID");
-                String FullName = resultSet.getString("FullName");
-                String HouseNumber = resultSet.getString("HouseNumber");
-                String RoadName = resultSet.getString("RoadName");
-                String CityName = resultSet.getString("CityName");
-                String PostCode = resultSet.getString("PostCode");
-                String Quantity = resultSet.getString("Quantity");
-                tableModel.addRow(new Object[]{OrderID, OrderStatus, ProductID, FullName, HouseNumber, RoadName, CityName, PostCode, Quantity});
+                tableModel.addRow(new Object[]{OrderID, OrderStatus, ProductID});
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(frame, "Database error: " + e.getMessage());
