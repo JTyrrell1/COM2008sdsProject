@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 public class StaffOrderPage {
 
+
     private JFrame frame;
     private JTable orderTable;
     private DefaultTableModel tableModel;
@@ -41,6 +42,7 @@ public class StaffOrderPage {
         past = false;
         fetchOrders(past);
 
+        // Creating the Button for fulfilling orders
         fulfillButton = new JButton("Fulfill Order");
         fulfillButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -60,7 +62,7 @@ public class StaffOrderPage {
             }
         });
 
-
+        //Creating button for deleting orders
         deleteButton = new JButton("Delete Order");
         deleteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -73,6 +75,7 @@ public class StaffOrderPage {
             }
         });
 
+        //Buttons for switching between past and current orders
         pastButton = new JButton("View Past Orders");
         pastButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -89,6 +92,7 @@ public class StaffOrderPage {
             }
         });
 
+        //setting up button panel for all buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(fulfillButton);
         buttonPanel.add(pastButton);
@@ -103,6 +107,7 @@ public class StaffOrderPage {
     private void fetchOrders(boolean past) {
         Connection connection = null;
         try {
+            //selecting all the attributes required from different tables
             connection = DatabaseConnectionHandler.getConnection();
             String query = "SELECT o.OrderID, o.OrderStatus, o.ProductID,CONCAT(u.Forename, ' ', u.Surname) AS FullName, a.HouseNumber, a.RoadName, a.CityName, a.PostCode, p.Quantity " +
                     "FROM Orders o, Products p, Users u, Address a " +
@@ -145,13 +150,14 @@ public class StaffOrderPage {
             connection = DatabaseConnectionHandler.getConnection();
             // Start transaction
             connection.setAutoCommit(false);
-
+            // Prepare statement for fulfilling orders
             String checkQuery = "SELECT OrderStatus FROM Orders WHERE OrderID = ?";
             PreparedStatement checkStmt = connection.prepareStatement(checkQuery);
             checkStmt.setInt(1, OrderID);
             ResultSet resultSet = checkStmt.executeQuery();
 
             if(resultSet.next() && "Confirmed".equals(resultSet.getString("OrderStatus"))) {
+                // Fulfill order and decrease stock level
                 String updateOrderQuery = "UPDATE Orders SET OrderStatus = 'Fulfilled' WHERE OrderID = ?";
                 PreparedStatement updateOrderStmt = connection.prepareStatement(updateOrderQuery);
                 String updateProductQuery = "UPDATE Products SET Quantity = Quantity - 1 WHERE ProductID = ?";

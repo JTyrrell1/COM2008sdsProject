@@ -29,8 +29,7 @@ public class UserDetails extends JDialog {
 
         returnButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                final BetterCustomerPage window = new BetterCustomerPage(ID);
-                window.main(ID);
+                new BetterCustomerPage(ID);
                 frame.dispose();
             }
         });
