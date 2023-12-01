@@ -51,8 +51,7 @@ public class BetterCustomerPage {
 
         DetailsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                UserDetails userDetails = new UserDetails(userID);
-                userDetails.main(userID);
+                new UserDetails(userID);
                 frame.dispose();
             }
         });
@@ -73,7 +72,7 @@ public class BetterCustomerPage {
         LogOutButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 final LoginPage window = new LoginPage();
-                window.main();
+                window.startUp();
                 frame.dispose();
             }
         });
@@ -107,7 +106,7 @@ public class BetterCustomerPage {
         buttonPanel.add(DetailsButton);
         buttonPanel.add(OrdersButton);
         buttonPanel.add(LogOutButton);
-        if (UserRank != null && UserRank.equals("Staff")) {
+        if (UserRank != null && (UserRank.equals("Staff") || UserRank.equals("Manager"))) {
             buttonPanel.add(StaffButton);
         }
         frame.add(buttonPanel, BorderLayout.NORTH);
@@ -281,6 +280,7 @@ public class BetterCustomerPage {
             ResultSet UType = preparedStatement3.executeQuery();
 
             if (UType.next()) {
+                System.out.println(UType.getString(1));
                 return UType.getString(1);
             } else {
                 return "Customer";
