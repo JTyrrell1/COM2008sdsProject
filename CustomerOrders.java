@@ -36,15 +36,20 @@ public class CustomerOrders extends JDialog{
             public void actionPerformed(ActionEvent e) {
                 final BetterCustomerPage window = new BetterCustomerPage(ID);
                 window.main(ID);
-                frame.dispose();
+                dispose();
             }
         });
+
 
         orderTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(orderTable);
         frame.add(scrollPane, BorderLayout.CENTER);
+        frame.add(ReturnButton, BorderLayout.NORTH);
 
         GetOrders(ID);
+        
+        frame.pack();
+        frame.setVisible(true);
     }
 
     private void GetOrders(int UserID){
