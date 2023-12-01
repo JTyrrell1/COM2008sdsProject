@@ -214,7 +214,7 @@ public class StaffOrderPage {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main() {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new StaffOrderPage();

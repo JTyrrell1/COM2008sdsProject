@@ -5,9 +5,9 @@ import com.intellij.uiDesigner.core.Spacer;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Stack;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
-import java.util.ArrayList;
+import java.security.SecureRandom;
 
 
 public class LoginPage extends JDialog {
@@ -53,15 +53,18 @@ public class LoginPage extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
+    //Code that runs to validate the users inputs in the email and password for the purpose of logging in.
     private void onOK() {
         String email = textField1.getText();
         char[] password = passwordField1.getPassword();
-        if ((email != "") && (new String(password) != "") && (email.contains(" ") == false) && (new String(password).contains(" ") == false)) {
-            authenticateUser(email, new String(password));
-        } else if ((email.contains(" ") == false) && (new String(password).contains(" ") == false)) {
+        if ((!email.isEmpty()) && !(password.length == 0) && !(email.contains(" ")) && !(new String(password).contains(" "))) {
+            authenticateUser(email, password);
+        } else if ((!email.contains(" ")) && (!new String(password).contains(" "))) {
             JOptionPane.showMessageDialog(frame, "Email or Password has been left blank.");
+            main();
         } else {
             JOptionPane.showMessageDialog(frame, "Email or Password contains invalid characters.");
+            main();
         }
         dispose();
     }
@@ -70,10 +73,19 @@ public class LoginPage extends JDialog {
         dispose();
     }
 
+    //Code that runs to validate the users inputs in the email and password for the purpose of Signing up.
     private void onSignUp() {
         String email = textField1.getText();
         char[] password = passwordField1.getPassword();
-        UserSignUp(email, new String(password));
+        if ((!email.isEmpty()) && !(password.length == 0) && !(email.contains(" ")) && !(new String(password).contains(" "))) {
+            UserSignUp(email, password);
+        } else if ((!email.contains(" ")) && (!new String(password).contains(" "))) {
+            JOptionPane.showMessageDialog(frame, "Email or Password has been left blank.");
+            main();
+        } else {
+            JOptionPane.showMessageDialog(frame, "Email or Password contains invalid characters.");
+            main();
+        }
         dispose();
     }
 
@@ -83,34 +95,45 @@ public class LoginPage extends JDialog {
         dialog.setVisible(true);
     }
 
-    private void authenticateUser(String email, String password) {
+    // Checks the given email and password against a hash of that in the database so users can sign in securely
+    private void authenticateUser(String email, char[] inputPassword) {
         Connection connection = null;
         try {
             connection = DatabaseConnectionHandler.getConnection();
-            //String queery = "USE team071";
-            //PreparedStatement setupStatement = connection.prepareStatement(queery);
-            //setupStatement.executeQuery();
 
-            String query = "SELECT * FROM Users WHERE email = ? AND password = ?";
+            String query = "SELECT * FROM Users WHERE email = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                JOptionPane.showMessageDialog(frame, "Login successful!");
 
+                //retrieving the user's salt
+                String salt = resultSet.getString(9);
 
-                int userID = resultSet.getInt(1);
+                //hashing the inputted password to compare to the stored hashed password
+                String hashedInputPassword = PasswordHasher.hashPassword(salt, inputPassword);
 
-                BetterCustomerPage maingui = new BetterCustomerPage(userID);
-                maingui.main(userID);
+                //comparing stored password and inputted password
+                String storedPassword = resultSet.getString(3);
 
-                frame.dispose();
+                if (storedPassword.equals(hashedInputPassword)) {
+
+                    JOptionPane.showMessageDialog(frame, "Login successful!");
+
+                    int userID = resultSet.getInt(1);
+
+                    new BetterCustomerPage(userID);
+
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Invalid password");
+                    main();
+                }
 
             } else {
-                JOptionPane.showMessageDialog(frame, "Invalid email or password.");
+                JOptionPane.showMessageDialog(frame, "Invalid email");
+                main();
             }
 
         } catch (SQLException sqle) {
@@ -126,7 +149,9 @@ public class LoginPage extends JDialog {
         }
     }
 
-    private void UserSignUp(String email, String password) {
+
+    //First checks if the given email is already in the database and if not creates an account with the given email and password once again hashing it for security 
+    private void UserSignUp(String email, char[] password) {
         Connection connection = null;
         try {
             connection = DatabaseConnectionHandler.getConnection();
@@ -147,15 +172,25 @@ public class LoginPage extends JDialog {
                 int UserVal = UserID.getInt(1);
                 UserVal = UserVal + 1;
 
+                //generating random salt for encryption
+                SecureRandom random = new SecureRandom();
+                byte[] bytes = new byte[20];
+                random.nextBytes(bytes);
+                String salt = new String(bytes, StandardCharsets.UTF_8);
 
-                String query2 = "INSERT INTO Users (userid, email, password,usertype) VALUES(?, ?, ?, ?)";
+                String securePassword = PasswordHasher.hashPassword(salt, password);
+
+
+                String query2 = "INSERT INTO Users (userid, email, password, usertype, salt) VALUES(?, ?, ?, ?, ?)";
                 PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
                 preparedStatement2.setInt(1, UserVal);
                 preparedStatement2.setString(2, email);
-                preparedStatement2.setString(3, password);
+                preparedStatement2.setString(3, securePassword);
                 preparedStatement2.setString(4, "Customer");
+                preparedStatement2.setString(5, salt);
                 preparedStatement2.executeUpdate();
                 JOptionPane.showMessageDialog(frame, "Account created");
+                main();
             }
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());

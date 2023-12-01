@@ -1,26 +1,34 @@
 import java.util.Date;
 
 public class BankAccount {
-    
-    private String cardName;
-    private int cardNumber;
-    private Date expiryDate;
-    private int securityCode;
-    private String cardHolderName;
+
+    private int accountNumber;
+    private int civ;
+    private int expiryDate;
+    private String firstName;
+    private String lastName;
     
     /**
-     * @param cardName
-     * @param cardNumber
+     * @param accountNumber
+     * @param civ
      * @param expiryDate
-     * @param securityCode
-     * @param cardHolderName
+     * @param firstName
+     * @param lastName
      */
-    public BankAccount(String cardName, int cardNumber, Date expiryDate, int securityCode, String cardHolderName) {
-        this.cardName = cardName;
-        this.cardNumber = cardNumber;
+    public BankAccount(int accountNumber, int civ, int expiryDate, String firstName, String lastName) {
+        this.accountNumber = accountNumber;
+        this.civ = civ;
         this.expiryDate = expiryDate;
-        this.securityCode = securityCode;
-        this.cardHolderName = cardHolderName;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
-    
+
+    @Override
+    public String toString() {
+        return
+                "Account Number: " + accountNumber + "\n" +
+                "Security Number: " + civ + '\n' +
+                "Expiry Date: " + expiryDate + "\n" +
+                "Name: " + firstName + ' ' + lastName;
+    }
 }

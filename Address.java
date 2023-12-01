@@ -4,7 +4,7 @@ public class Address {
     private String roadName;
     private String cityName;
     private String postcode;
-    
+
     /**
      * @param houseNumber
      * @param roadName
@@ -17,6 +17,13 @@ public class Address {
         this.cityName = cityName;
         this.postcode = postcode;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return
+                "House Number: " + houseNumber + '\n' +
+                "Road Name: " + roadName + '\n' +
+                "City Name: " + cityName + '\n' +
+                "Postcode: " + postcode;
+    }
 }

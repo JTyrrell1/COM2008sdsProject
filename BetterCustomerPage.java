@@ -12,8 +12,10 @@ public class BetterCustomerPage {
     private JTable userTable;
     private DefaultTableModel tableModel;
     private JButton OrdersButton;
+    private JButton DetailsButton;
     private JButton LogOutButton;
     private JButton AddToCartButton;
+    private JButton StaffButton;
 
     private JButton TrainCheckBox;
     private JButton TrackCheckBox;
@@ -31,6 +33,30 @@ public class BetterCustomerPage {
         frame = new JFrame("Customer DashBoard");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+
+        String UserRank = GetUserType(userID);
+        if (!(UserRank == null) && ((UserRank.equals("Staff"))  || (UserRank.equals("Manager")))){
+            StaffButton = new JButton("Staff");
+
+            StaffButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    StaffPage RiumHeart = new StaffPage(userID);
+                    RiumHeart.main(userID);
+                }
+            });
+        }
+
+        DetailsButton = new JButton("User Details");
+
+        DetailsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                UserDetails userDetails = new UserDetails(userID);
+                userDetails.main(userID);
+                frame.dispose();
+            }
+        });
+
 
         OrdersButton = new JButton("Orders");
 
@@ -78,8 +104,12 @@ public class BetterCustomerPage {
         PullProducts();
 
         JPanel buttonPanel = new JPanel();
+        buttonPanel.add(DetailsButton);
         buttonPanel.add(OrdersButton);
         buttonPanel.add(LogOutButton);
+        if (UserRank != null && UserRank.equals("Staff")) {
+            buttonPanel.add(StaffButton);
+        }
         frame.add(buttonPanel, BorderLayout.NORTH);
 
         JPanel selectorPanel = new JPanel();
@@ -224,6 +254,7 @@ public class BetterCustomerPage {
             preparedStatement2.setString(2, "Confirmed");
             preparedStatement2.setInt(3, ProductID);
             preparedStatement2.setInt(4, UserID);
+            preparedStatement2.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -239,5 +270,37 @@ public class BetterCustomerPage {
 
     }
 
+    private String GetUserType(int UserID){
+        Connection connection = null;
+        try{
+            connection = DatabaseConnectionHandler.getConnection();
+
+            String UserTypeQuery = "SELECT UserType From Users WHERE UserID = ?";
+            PreparedStatement preparedStatement3 = connection.prepareStatement(UserTypeQuery);
+            preparedStatement3.setInt(1, UserID);
+            ResultSet UType = preparedStatement3.executeQuery();
+
+            if (UType.next()) {
+                return UType.getString(1);
+            } else {
+                return "Customer";
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            // Close the connection
+            if (connection != null) {
+                try {
+                    connection.close();
+                    return null;
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }
+    }
 
 }
