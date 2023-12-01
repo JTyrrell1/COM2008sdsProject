@@ -104,7 +104,9 @@ public class BetterCustomerPage {
         buttonPanel.add(DetailsButton);
         buttonPanel.add(OrdersButton);
         buttonPanel.add(LogOutButton);
-        buttonPanel.add(StaffButton);
+        if ((UserRank != null) && ((UserRank.equals("Staff"))  || (UserRank.equals("Manager")))){
+            buttonPanel.add(StaffButton);
+        }
         frame.add(buttonPanel, BorderLayout.NORTH);
 
         JPanel selectorPanel = new JPanel();
