@@ -10,7 +10,7 @@ public class StaffPage extends JFrame {
     private DefaultTableModel tableModel;
     private JTable table;
     private JPanel buttonPanel;
-    private String[] categories = {"Tracks", "Controllers", "LocoMotives", "Rolling Stocks", "Train Sets", "Track Packs","All"}; // Your category identifiers
+    private String[] categories = {"Tracks", "Controllers", "LocoMotives", "Rolling Stocks", "Train Sets", "Track Packs","All"};
     private JButton addButton;
     private JButton deleteButton;
     private JButton editButton;
@@ -40,6 +40,7 @@ public class StaffPage extends JFrame {
         tableModel.addColumn("Quantity");
 
         String UserRank = GetUserType(UserID);
+        // Showing manager window if user is a manager
         if (UserRank == "Manager"){
             ManagerButton = new JButton("Staff");
 
@@ -80,17 +81,18 @@ public class StaffPage extends JFrame {
             });
             buttonPanel.add(button);
         }
+        // Button for adding products
         addButton = new JButton("Add Product");
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 title = "Add Product";
                 AddProductDialog addDialog = new AddProductDialog(StaffPage.this,null,title);
                 addDialog.setVisible(true);
-                // After the dialog is disposed, you might want to refresh the product list
-                fetchProducts("All"); // Or however you retrieve and display the products
+                fetchProducts("All");
             }
         });
 
+        //Button for deleating products
         deleteButton = new JButton("Delete Product");
 
         deleteButton.addActionListener(new ActionListener() {
@@ -104,7 +106,7 @@ public class StaffPage extends JFrame {
             }
         });
 
-
+        // Button for editing products
         editButton = new JButton("Edit Product");
         editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

@@ -44,14 +44,6 @@ public class ManagerPage {
             }
         });
 
-//        returnStaffPage = new JButton("Staff Page");
-//        returnStaffPage.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e){
-//            StaffPage maingui = new StaffPage();
-//            maingui.main();
-//            }
-//        }
-
         // Create and add the demote button.
         demoteButton = new JButton("Demote to Customer");
         demoteButton.addActionListener(new ActionListener() {
@@ -69,7 +61,6 @@ public class ManagerPage {
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(promoteButton);
         buttonPanel.add(demoteButton);
-//        buttonPanel.add(returnStaffPage);
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
         // Display the window.
@@ -174,7 +165,7 @@ public class ManagerPage {
         }
     }
 
-    // Main method to start the application.
+
     public static void main(int UserID) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {

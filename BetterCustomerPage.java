@@ -24,7 +24,6 @@ public class BetterCustomerPage {
     private int userID;
     private int i; 
     private String ButtonName;
-    private JTextField UserInput;
 
     private String[] categories = {"All","Tracks", "Controllers", "LocoMotives", "Rolling Stocks", "Train Sets", "Track Packs"};
 
@@ -34,6 +33,7 @@ public class BetterCustomerPage {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
+        //Checks what type of user the logged in user is and then if they have high enough permissions it shows the user the button to take them to the staff area.
         String UserRank = GetUserType(userID);
         if (!(UserRank == null) && ((UserRank.equals("Staff"))  || (UserRank.equals("Manager")))){
             StaffButton = new JButton("Staff");
@@ -43,6 +43,7 @@ public class BetterCustomerPage {
                 public void actionPerformed(ActionEvent e) {
                     StaffPage RiumHeart = new StaffPage(userID);
                     RiumHeart.main(userID);
+                    frame.dispose();
                 }
             });
         }
@@ -77,7 +78,7 @@ public class BetterCustomerPage {
             }
         });
 
-        AddToCartButton = new JButton("Add to cart");
+        AddToCartButton = new JButton("Order");
 
         AddToCartButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
@@ -85,15 +86,12 @@ public class BetterCustomerPage {
             }
         });
 
-        UserInput = new JTextField();
-
         JPanel AddPanel = new JPanel();
-        AddPanel.add(UserInput);
         AddPanel.add(AddToCartButton);
         frame.add(AddPanel, BorderLayout.SOUTH);
 
         // Set up the table model.
-        tableModel = new DefaultTableModel(new Object[]{"BrandName", "ProductName", "Price"}, 0);
+        tableModel = new DefaultTableModel(new Object[]{"BrandName", "ProductName", "Price", "ProductID"}, 0);
 
         // Create the table with the model.
         userTable = new JTable(tableModel);
@@ -133,11 +131,12 @@ public class BetterCustomerPage {
         frame.setVisible(true);
     }
 
+    //Pulls all the products from the database and uses them to poulate the table show on the page.
     private void PullProducts() {
         Connection connection = null;
         try {
             connection = DatabaseConnectionHandler.getConnection();
-            String query = "SELECT BrandName,ProductName,Price FROM Products";
+            String query = "SELECT BrandName,ProductName,Price,ProductID FROM Products";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
             tableModel.setRowCount(0);
@@ -145,7 +144,8 @@ public class BetterCustomerPage {
                 String BrandName = resultSet.getString("BrandName");
                 String ProductName = resultSet.getString("ProductName");
                 String Price = resultSet.getString("Price");
-                tableModel.addRow(new Object[]{BrandName, ProductName, Price});
+                String ProductID = resultSet.getString("ProductID");
+                tableModel.addRow(new Object[]{BrandName, ProductName, Price, ProductID});
             }
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(frame, "Database error: " + sqle.getMessage());
@@ -168,6 +168,7 @@ public class BetterCustomerPage {
         });
     }
 
+    //Filters the products in the database according to the selected filter and then puts them in the table on the screen.
     private void fetchProducts(String filter) {
         // Clear the existing data in the table model.
         tableModel.setRowCount(0);
@@ -232,6 +233,7 @@ public class BetterCustomerPage {
         }
     }
     
+    //Lets the customer click on a product and then on the order button to order a product
     private void AddToCart(int UserID){
         Connection connection = null;
         int selectedRow = userTable.getSelectedRow();
@@ -245,8 +247,7 @@ public class BetterCustomerPage {
                 int UserVal = OrderID.getInt(1);
                 UserVal = UserVal + 1;
 
-            int ProductID = (int) tableModel.getValueAt(selectedRow, 3);
-
+            int ProductID = Integer.parseInt(tableModel.getValueAt(selectedRow, 3).toString());
             String query = "INSERT  into Orders values (?,?,?,?)";
             PreparedStatement preparedStatement2 = connection.prepareStatement(query);
             preparedStatement2.setInt(1, UserVal);
@@ -269,6 +270,7 @@ public class BetterCustomerPage {
 
     }
 
+    //Gets the type of the currently logged in user
     private String GetUserType(int UserID){
         Connection connection = null;
         try{
