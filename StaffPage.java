@@ -41,7 +41,7 @@ public class StaffPage extends JFrame {
 
         String UserRank = GetUserType(UserID);
         // Showing manager window if user is a manager
-        if (UserRank == "Manager"){
+        if (UserRank.equals("Manager")){
             ManagerButton = new JButton("Staff");
 
             ManagerButton.addActionListener(new ActionListener() {

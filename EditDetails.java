@@ -48,16 +48,16 @@ public class EditDetails extends JDialog {
         addressForm.setLayout(addressLayout);
 
         addressForm.add(new JLabel("House Number: "));
-        JTextField houseNumber = new JTextField(" ");
+        JTextField houseNumber = new JTextField("");
         addressForm.add(houseNumber);
         addressForm.add(new JLabel("Road Name: "));
-        JTextField roadName = new JTextField(" ");
+        JTextField roadName = new JTextField("");
         addressForm.add(roadName);
         addressForm.add(new JLabel("City Name: "));
-        JTextField cityName = new JTextField(" ");
+        JTextField cityName = new JTextField("");
         addressForm.add(cityName);
         addressForm.add(new JLabel("Post Code: "));
-        JTextField postCode = new JTextField(" ");
+        JTextField postCode = new JTextField("");
         addressForm.add(postCode);
 
         frame.add(addressForm, BorderLayout.WEST);
@@ -69,19 +69,19 @@ public class EditDetails extends JDialog {
         bankForm.setLayout(bankLayout);
 
         bankForm.add(new JLabel("Account Number: "));
-        JTextField accountNumber = new JTextField(" ");
+        JTextField accountNumber = new JTextField("");
         bankForm.add(accountNumber);
         bankForm.add(new JLabel("Security Number: "));
-        JTextField securityNumber = new JTextField(" ");
+        JTextField securityNumber = new JTextField("");
         bankForm.add(securityNumber);
         bankForm.add(new JLabel("ExpiryDate (MMYY): "));
-        JTextField expiryDate = new JTextField(" ");
+        JTextField expiryDate = new JTextField("");
         bankForm.add(expiryDate);
         bankForm.add(new JLabel("First Name: "));
-        JTextField firstName = new JTextField(" ");
+        JTextField firstName = new JTextField("");
         bankForm.add(firstName);
         bankForm.add(new JLabel("Last Name: "));
-        JTextField lastName = new JTextField(" ");
+        JTextField lastName = new JTextField("");
         bankForm.add(lastName);
 
         frame.add(bankForm, BorderLayout.EAST);
@@ -106,8 +106,13 @@ public class EditDetails extends JDialog {
                                String accountNumber, String securityCode, String expiryDate, String firstName,
                                String lastName) {
         Connection connection = null;
+
         try {
             connection = DatabaseConnectionHandler.getConnection();
+
+            String queryIndex = "SELECT  FROM Users WHERE userid = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(queryIndex);
+            preparedStatement.setInt(1, UserID);
 
             String queryAddress = "UPDATE Address SET HouseNumber = ?, RoadName = ?, CityName = ?, PostCode = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(queryAddress);
