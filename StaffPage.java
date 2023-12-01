@@ -17,7 +17,7 @@ public class StaffPage extends JFrame {
 
     private String title;
 
-    public StaffPage() {
+    public StaffPage(int UserID) {
         // Set up the frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
@@ -207,10 +207,10 @@ public class StaffPage extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(int UserID) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new StaffPage();
+                new StaffPage(UserID);
             }
         });
     }
