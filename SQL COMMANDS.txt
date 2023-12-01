@@ -1,0 +1,74 @@
+SQL COMMANDS:
+
+CREATE TABLE Products (
+   ProductID INT NOT NULL PRIMARY KEY UNIQUE,
+   BrandName VARCHAR(30) NOT NULL,
+   ProductName VARCHAR(200) NOT NULL,
+   ProductCode VARCHAR(6) NOT NULL,
+   Price Float NOT NULL,
+   Gauge VARCHAR(2) NOT NULL,
+   Era VARCHAR(15) DEFAULT NULL,
+   DccCode VARCHAR(10) DEFAULT NULL,
+   Quantity INT NOT NULL
+);
+
+CREATE TABLE Address (
+   AddressID INT PRIMARY KEY UNIQUE,
+   HouseNumber INT,
+   RoadName VARCHAR(45),
+   CityName VARCHAR(45),
+   PostCode VARCHAR(45)
+);
+
+CREATE TABLE Banking (
+   BankID INT PRIMARY KEY UNIQUE,
+   AccountNumber VARCHAR(16),
+   Civ VARCHAR(3),
+   ExpiryDate VARCHAR(4),
+   FirstName VARCHAR(30),
+   LastName VARCHAR(30)
+);
+
+CREATE TABLE Users (
+   UserID INT NOT NULL PRIMARY KEY UNIQUE,
+   Email VARCHAR(45) NOT NULL UNIQUE,
+   Password VARCHAR(64) NOT NULL,
+   Forename VARCHAR(45),
+   Surname VARCHAR(45),
+   UserType ENUM('Customer','Staff','Manager') NOT NULL,
+   AddressID INT,
+   BankID INT,
+   Salt char(20),
+   FOREIGN KEY (AddressID) REFERENCES Address(AddressID),
+   FOREIGN KEY (BankID) REFERENCES Banking(BankID)
+);
+   
+   
+CREATE TABLE Orders (
+   OrderID INT PRIMARY KEY UNIQUE,
+   OrderStatus ENUM ('Fulfilled','Pending','Confirmed'),
+   ProductID INT,
+   UserID INT,
+   FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+   FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+INSERT INTO Products (ProductID, BrandName, Productname, ProductCode, Price, Gauge)
+VALUES (1, "Hornby", "Single Straight", "R243", 3.99, 'OO');
+VALUES (2, "Bachmann", "Standard Controller", "C98462", 6.99, 'TT');
+VALUES (4, "Peco", "1st radius Double Curve", "R485", 3.99, 'TT');
+VALUES (8, "Peco", "2nd Radius Starter Oval (including: 8 x 2nd Radius Double Curve, 2 x Single
+Straight)", "P1827", 120, 'TT');
+
+INSERT INTO Products 
+VALUES (3, "Dapol", "Class 8P Coronation", "L8216", 25.00, 'N','Era 10-11', 'DCC-Fitted');
+
+INSERT INTO Products (ProductID, BrandName, Productname, ProductCode, Price, Gauge, Era)
+VALUES (5, "Graham Farish", "LMS Buffet Car", "S7162", 20.00, 'TT','Era 4-5');
+VALUES (6, "Graham Farish", "Coalfish Open Wagon", "S912", 14.99, 'OO','Era 7-8');
+
+
+
+   
+   
+    
