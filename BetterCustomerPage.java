@@ -24,7 +24,6 @@ public class BetterCustomerPage {
     private int userID;
     private int i; 
     private String ButtonName;
-    private JTextField UserInput;
 
     private String[] categories = {"All","Tracks", "Controllers", "LocoMotives", "Rolling Stocks", "Train Sets", "Track Packs"};
 
@@ -79,7 +78,7 @@ public class BetterCustomerPage {
             }
         });
 
-        AddToCartButton = new JButton("Add to cart");
+        AddToCartButton = new JButton("Order");
 
         AddToCartButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
@@ -87,10 +86,7 @@ public class BetterCustomerPage {
             }
         });
 
-        UserInput = new JTextField();
-
         JPanel AddPanel = new JPanel();
-        AddPanel.add(UserInput);
         AddPanel.add(AddToCartButton);
         frame.add(AddPanel, BorderLayout.SOUTH);
 
