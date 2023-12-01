@@ -124,8 +124,7 @@ public class LoginPage extends JDialog {
 
                     int userID = resultSet.getInt(1);
 
-                    BetterCustomerPage maingui = new BetterCustomerPage(userID);
-                    maingui.main(userID);
+                    new BetterCustomerPage(userID);
 
                 } else {
                     JOptionPane.showMessageDialog(frame, "Invalid password");
