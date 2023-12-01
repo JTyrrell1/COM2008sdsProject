@@ -12,6 +12,7 @@ public class BetterCustomerPage {
     private JTable userTable;
     private DefaultTableModel tableModel;
     private JButton OrdersButton;
+    private JButton DetailsButton;
     private JButton LogOutButton;
     private JButton AddToCartButton;
     private JButton StaffButton;
@@ -34,7 +35,7 @@ public class BetterCustomerPage {
         frame.setLayout(new BorderLayout());
 
         String UserRank = GetUserType(userID);
-        if ((UserRank == "Staff")  || (UserRank == "Manager")){
+        if (!(UserRank == null) && ((UserRank.equals("Staff"))  || (UserRank.equals("Manager")))){
             StaffButton = new JButton("Staff");
 
             StaffButton.addActionListener(new ActionListener() {
@@ -45,6 +46,16 @@ public class BetterCustomerPage {
                 }
             });
         }
+
+        DetailsButton = new JButton("User Details");
+
+        DetailsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                UserDetails userDetails = new UserDetails(userID);
+                userDetails.main(userID);
+                frame.dispose();
+            }
+        });
 
 
         OrdersButton = new JButton("Orders");
@@ -93,9 +104,10 @@ public class BetterCustomerPage {
         PullProducts();
 
         JPanel buttonPanel = new JPanel();
+        buttonPanel.add(DetailsButton);
         buttonPanel.add(OrdersButton);
         buttonPanel.add(LogOutButton);
-        if (UserRank == "Staff") {
+        if (UserRank != null && UserRank.equals("Staff")) {
             buttonPanel.add(StaffButton);
         }
         frame.add(buttonPanel, BorderLayout.NORTH);
@@ -265,10 +277,14 @@ public class BetterCustomerPage {
 
             String UserTypeQuery = "SELECT UserType From Users WHERE UserID = ?";
             PreparedStatement preparedStatement3 = connection.prepareStatement(UserTypeQuery);
-            preparedStatement3.setInt(1,UserID);
+            preparedStatement3.setInt(1, UserID);
             ResultSet UType = preparedStatement3.executeQuery();
-            String TypeString = UType.getString(1);
-            return TypeString;
+
+            if (UType.next()) {
+                return UType.getString(1);
+            } else {
+                return "Customer";
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
