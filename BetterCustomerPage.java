@@ -294,10 +294,8 @@ public class BetterCustomerPage {
             if (connection != null) {
                 try {
                     connection.close();
-                    return null;
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    return null;
                 }
             }
         }
